@@ -1,0 +1,54 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "Web\Web.csproj", "{4E82613F-997A-400D-90B4-E16ABDC2DC45}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Update", "Update\Update.csproj", "{829B98BA-7344-424B-AC3F-021BE186D907}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdKiller", "AdKiller\AdKiller.csproj", "{65460EC7-FD80-46E4-853E-D6B3A855A865}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdExtend", "AdExtend\AdExtend.csproj", "{9FD51366-F313-4750-81AA-3F280B7B5CB6}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4E82613F-997A-400D-90B4-E16ABDC2DC45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E82613F-997A-400D-90B4-E16ABDC2DC45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E82613F-997A-400D-90B4-E16ABDC2DC45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E82613F-997A-400D-90B4-E16ABDC2DC45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{829B98BA-7344-424B-AC3F-021BE186D907}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{829B98BA-7344-424B-AC3F-021BE186D907}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{829B98BA-7344-424B-AC3F-021BE186D907}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{829B98BA-7344-424B-AC3F-021BE186D907}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65460EC7-FD80-46E4-853E-D6B3A855A865}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65460EC7-FD80-46E4-853E-D6B3A855A865}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65460EC7-FD80-46E4-853E-D6B3A855A865}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65460EC7-FD80-46E4-853E-D6B3A855A865}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FD51366-F313-4750-81AA-3F280B7B5CB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FD51366-F313-4750-81AA-3F280B7B5CB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FD51366-F313-4750-81AA-3F280B7B5CB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FD51366-F313-4750-81AA-3F280B7B5CB6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

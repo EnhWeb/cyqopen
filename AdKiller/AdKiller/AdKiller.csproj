@@ -1,0 +1,124 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{65460EC7-FD80-46E4-853E-D6B3A855A865}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AdKiller</RootNamespace>
+    <AssemblyName>秋式广告杀手</AssemblyName>
+    <ApplicationIcon>Logo.ico</ApplicationIcon>
+    <Win32Resource>
+    </Win32Resource>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Code\AdFormat.cs" />
+    <Compile Include="Code\DebugLog.cs" />
+    <Compile Include="Code\Config.cs" />
+    <Compile Include="Code\MyRandom.cs" />
+    <Compile Include="DetailForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DetailForm.Designer.cs">
+      <DependentUpon>DetailForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TcpProxy\DESCrypt.cs" />
+    <Compile Include="TcpProxy\SslProxy.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Code\SystemHotKey.cs" />
+    <Compile Include="TcpProxy\TcpListen.cs" />
+    <Compile Include="TcpProxy\HttpProxy.cs" />
+    <Compile Include="Code\SysRegKey.cs" />
+    <Compile Include="Code\EnumObj.cs" />
+    <Compile Include="Code\HostEntity.cs" />
+    <Compile Include="Code\ST.cs" />
+    <Compile Include="StartForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StartForm.Designer.cs">
+      <DependentUpon>StartForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="DetailForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>DetailForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StartForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>StartForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Code\WebHost.cs" />
+    <Compile Include="TcpProxy\SocketPool.cs" />
+    <Compile Include="TcpProxy\Tool.cs" />
+    <Compile Include="TcpProxy\IEProxy.cs" />
+    <Compile Include="UrlFilter\UrlFilter.cs" />
+    <Compile Include="UrlFilter\UrlOutWall.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Logo.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="group.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="qq.gif" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,6 @@
+1：本程序下载及示例地址：http://www.cyqdata.com/download/article-detail-54302
+2：作者：路过秋天。
+3：使用相关说明：
+A：小图标，在skin文件夹下
+B：Web.config需要配置为你的网站相应的appkey
+C：示例使用见Login.aspx

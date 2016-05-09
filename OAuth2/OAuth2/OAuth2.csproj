@@ -51,8 +51,9 @@
     <DocumentationFile>bin\Release\OAuth2.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CYQ.Data">
-      <HintPath>..\packages\cyqdata.5.5.9.2\lib\net\CYQ.Data.dll</HintPath>
+    <Reference Include="CYQ.Data, Version=5.5.9.2, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\AriesFramework\trunk\Aries.DevFramework\packages\CYQ.Data.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />

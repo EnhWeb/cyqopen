@@ -1,10 +1,12 @@
+using CYQ.Data;
+using CYQ.Data.Orm;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace OAuth2
 {
-    public class OAuth2Account:CYQ.Data.Orm.OrmBase
+    public partial class OAuth2Account:OrmBase
     {
         public OAuth2Account()
         {
@@ -132,5 +134,60 @@ namespace OAuth2
                 _BindAccount = value;
             }
         }
+    }
+
+    public partial class OAuth2Account
+    {
+        #region 关联绑定账号
+
+        /// <summary>
+        /// 读取已经绑定的账号
+        /// </summary>
+        /// <returns></returns>
+        public static string GetBindAccount(OAuth2Base ob)
+        {
+            string account = string.Empty;
+            using (OAuth2Account oa = new OAuth2Account())
+            {
+                if (oa.Fill(string.Format("OAuthServer='{0}' and OpenID='{1}'", ob.Server, ob.openID)))
+                {
+                    oa.Token = ob.token;
+                    oa.ExpireTime = ob.expiresTime;
+                    oa.NickName = ob.nickName;
+                    oa.HeadUrl = ob.headUrl;
+                    oa.Update();//更新token和过期时间
+                    account = oa.BindAccount;
+                }
+            }
+            return account;
+        }
+        /// <summary>
+        /// 添加绑定账号
+        /// </summary>
+        /// <param name="bindAccount"></param>
+        /// <returns></returns>
+        public static bool SetBindAccount(OAuth2Base ob, string bindAccount)
+        {
+            bool result = false;
+            if (!string.IsNullOrEmpty(ob.openID) && !string.IsNullOrEmpty(ob.token) && !string.IsNullOrEmpty(bindAccount))
+            {
+                using (OAuth2Account oa = new OAuth2Account())
+                {
+                    if (!oa.Exists(string.Format("OAuthServer='{0}' and OpenID='{1}'", ob.Server, ob.openID)))
+                    {
+                        oa.OAuthServer = ob.Server.ToString();
+                        oa.Token = ob.token;
+                        oa.OpenID = ob.openID;
+                        oa.ExpireTime = ob.expiresTime;
+                        oa.BindAccount = bindAccount;
+                        oa.NickName = ob.nickName;
+                        oa.HeadUrl = ob.headUrl;
+                        result = oa.Insert(InsertOp.None);
+                    }
+                }
+            }
+            return result;
+        }
+        #endregion
     }
 }

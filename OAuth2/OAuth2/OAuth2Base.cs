@@ -8,7 +8,7 @@ namespace OAuth2
     /// <summary>
     /// 授权基类
     /// </summary>
-    public abstract class OAuth2Base
+    public abstract class OAuth2Base : ICloneable
     {
         protected WebClient wc = new WebClient();
         public OAuth2Base()
@@ -44,7 +44,7 @@ namespace OAuth2
         /// 首次请求时返回的Code
         /// </summary>
         internal string code = string.Empty;
-        internal abstract OAuthServer server
+        internal abstract OAuthServer Server
         {
             get;
         }
@@ -64,6 +64,16 @@ namespace OAuth2
         {
             get;
         }
+        internal virtual string Para
+        {
+            get
+            {
+
+                string para = "grant_type=authorization_code&client_id=" + AppKey + "&client_secret=" + AppSercet + "&code=" + code + "&state=" + Server;
+                para += "&redirect_uri=" + System.Web.HttpUtility.UrlEncode(CallbackUrl) + "&rnd=" + DateTime.Now.Second;
+                return para;
+            }
+        }
         #endregion
 
         #region WebConfig对应的配置【AppKey、AppSercet、CallbackUrl】
@@ -71,21 +81,21 @@ namespace OAuth2
         {
             get
             {
-                return Tool.GetConfig(server.ToString() + ".AppKey");
+                return Tool.GetConfig(Server.ToString() + ".AppKey");
             }
         }
         internal string AppSercet
         {
             get
             {
-                return Tool.GetConfig(server.ToString() + ".AppSercet");
+                return Tool.GetConfig(Server.ToString() + ".AppSercet");
             }
         }
         internal string CallbackUrl
         {
             get
             {
-                return Tool.GetConfig(server.ToString() + ".CallbackUrl");
+                return Tool.GetConfig(Server.ToString() + ".CallbackUrl");
             }
         }
         #endregion
@@ -101,22 +111,20 @@ namespace OAuth2
             string result = string.Empty;
             try
             {
-                string para = "grant_type=authorization_code&client_id=" + AppKey + "&client_secret=" + AppSercet + "&code=" + code + "&state=" + server;
-                para += "&redirect_uri=" + System.Web.HttpUtility.UrlEncode(CallbackUrl) + "&rnd=" + DateTime.Now.Second;
                 if (method == "POST")
                 {
                     if (string.IsNullOrEmpty(wc.Headers["Content-Type"]))
                     {
                         wc.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
                     }
-                    result = wc.UploadString(TokenUrl, method, para);
+                    result = wc.UploadString(TokenUrl, method, Para);
                 }
                 else
                 {
-                    result = wc.DownloadString(TokenUrl + "?" + para);
+                    result = wc.DownloadString(TokenUrl + "?" + Para);
                 }
             }
-            catch(Exception err)
+            catch (Exception err)
             {
                 CYQ.Data.Log.WriteLogToTxt(err);
             }
@@ -126,71 +134,14 @@ namespace OAuth2
         /// 获取是否通过授权。
         /// </summary>
         public abstract bool Authorize();
-        /// <param name="bindAccount">返回绑定的账号（若未绑定返回空）</param>
-        public bool Authorize(out string bindAccount)
-        {
-            bindAccount = string.Empty;
-            if (Authorize())
-            {
-                bindAccount = GetBindAccount();
-                return true;
-            }
-            return false;
-        }
-
         #endregion
 
-        #region 关联绑定账号
+       
 
-        /// <summary>
-        /// 读取已经绑定的账号
-        /// </summary>
-        /// <returns></returns>
-        public string GetBindAccount()
+        public object Clone()
         {
-            string account = string.Empty;
-            using (OAuth2Account oa = new OAuth2Account())
-            {
-                if (oa.Fill(string.Format("OAuthServer='{0}' and OpenID='{1}'", server, openID)))
-                {
-                    oa.Token = token;
-                    oa.ExpireTime = expiresTime;
-                    oa.NickName = nickName;
-                    oa.HeadUrl = headUrl;
-                    oa.Update();//更新token和过期时间
-                    account = oa.BindAccount;
-                }
-            }
-            return account;
+            return this.MemberwiseClone();
         }
-        /// <summary>
-        /// 添加绑定账号
-        /// </summary>
-        /// <param name="bindAccount"></param>
-        /// <returns></returns>
-        public bool SetBindAccount(string bindAccount)
-        {
-            bool result = false;
-            if (!string.IsNullOrEmpty(openID) && !string.IsNullOrEmpty(token) && !string.IsNullOrEmpty(bindAccount))
-            {
-                using (OAuth2Account oa = new OAuth2Account())
-                {
-                    if (!oa.Exists(string.Format("OAuthServer='{0}' and OpenID='{1}'", server, openID)))
-                    {
-                        oa.OAuthServer = server.ToString();
-                        oa.Token = token;
-                        oa.OpenID = openID;
-                        oa.ExpireTime = expiresTime;
-                        oa.BindAccount = bindAccount;
-                        oa.NickName = nickName;
-                        oa.HeadUrl = headUrl;
-                        result = oa.Insert(CYQ.Data.InsertOp.None);
-                    }
-                }
-            }
-            return result;
-        }
-        #endregion
     }
     /// <summary>
     /// 提供授权的服务商

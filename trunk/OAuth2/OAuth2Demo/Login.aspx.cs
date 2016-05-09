@@ -16,6 +16,7 @@ namespace OAuth2Demo
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            OAuth2.UI.GoTo(OAuthServer.WeiXin);
             litOtherLoginInfo.Text = OAuth2.UI.GetHtml();
             if (IsPostBack)
             {

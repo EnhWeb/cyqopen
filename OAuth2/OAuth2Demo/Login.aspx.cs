@@ -8,6 +8,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
+using OAuth2;
 
 namespace OAuth2Demo
 {
@@ -15,36 +16,36 @@ namespace OAuth2Demo
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-	    litOtherLoginInfo.Text = OAuth2.UI.GetHtml();
+            litOtherLoginInfo.Text = OAuth2.UI.GetHtml();
             if (IsPostBack)
             {
-                return;   
+                return;
             }
-            OAuth2.OAuth2Base ob = OAuth2.OAuth2Factory.Current;//获取当前的授权类型，如果成功，则会缓存到Session中。
-            if (ob != null) //说明用户点击了授权，并跳回登陆界面来
-            {
-                string account = string.Empty;
-                if (ob.Authorize(out account))//检测是否授权成功，并返回绑定的账号（具体是绑定ID还是用户名，你的选择）
-                {
-                    if (!string.IsNullOrEmpty(account))//已绑定账号，直接用该账号设置登陆。
-                    {
-                        UserLogin ul = new UserLogin();
-                        if (ul.Login(account))
-                        {
-                            Response.Redirect("/");
-                        }
-                    }
-                    else // 未绑定账号，引导提示用户绑定账号。
-                    {
-                        Response.Write(ob.nickName + " 首次使用需要绑定网站账号，请登陆或注册新账号");        
-                    }
-                }
+            //OAuth2.OAuth2Base ob = OAuth2.OAuth2Factory.Create();//获取当前的授权类型，如果成功，则会缓存到Session中。
+            //if (ob != null) //说明用户点击了授权，并跳回登陆界面来
+            //{
+            //    if (ob.Authorize())//检测是否授权成功，并返回绑定的账号（具体是绑定ID还是用户名，你的选择）
+            //    {
+            //        string account = OAuth2Account.GetBindAccount(ob);
+            //        if (!string.IsNullOrEmpty(account))//已绑定账号，直接用该账号设置登陆。
+            //        {
+            //            UserLogin ul = new UserLogin();
+            //            if (ul.Login(account))
+            //            {
+            //               // Response.Redirect("/");
+            //            }
+            //        }
+            //        else // 未绑定账号，引导提示用户绑定账号。
+            //        {
+            //            //Response.Write(ob.nickName + " 首次使用需要绑定网站账号，请登陆或注册新账号");
+            //        }
+            //    }
 
-            }
-            else // 读取授权失败。
-            {
-                //提示用户重试，或改用其它社区方法登陆。
-            }
+            //}
+            //else // 读取授权失败。
+            //{
+            //    //提示用户重试，或改用其它社区方法登陆。
+            //}
 
         }
 
@@ -53,13 +54,7 @@ namespace OAuth2Demo
             UserLogin ul = new UserLogin();
             if (ul.Login(txtUserName.Text, txtPassword.Text))
             {
-                //登陆成功后，增加两行逻辑，检测是否绑定了账号
-                OAuth2.OAuth2Base ob = OAuth2.OAuth2Factory.SessionOAuth;
-                if (ob != null && !string.IsNullOrEmpty(ob.openID))
-                {
-                    ob.SetBindAccount(txtUserName.Text);
-                }
-
+                OAuth2Account.SetBindAccount(OAuth2Factory.CurrentOAuth, txtUserName.Text);
                 Response.Redirect("/");//登陆后跳转
             }
         }
@@ -69,13 +64,8 @@ namespace OAuth2Demo
             UserLogin ul = new UserLogin();
             if (ul.Reg(txtUserName.Text, txtPassword.Text))
             {
-                //注册成功后，增加两行逻辑，检测是否绑定了账号 -- 代码和登陆的一样。
-                OAuth2.OAuth2Base ob = OAuth2.OAuth2Factory.SessionOAuth;
-                if (ob != null && !string.IsNullOrEmpty(ob.openID))
-                {
-                    ob.SetBindAccount(txtUserName.Text);
-                }
-
+                //注册成功后检测是否绑定了账号 -- 代码和登陆的一样。
+                OAuth2Account.SetBindAccount(OAuth2Factory.CurrentOAuth, txtUserName.Text);
                 Response.Redirect("/");//登陆后跳转
             }
         }
@@ -85,7 +75,7 @@ namespace OAuth2Demo
         /// <summary>
         /// 授权时直接用用户名登陆。
         /// </summary>
-        public  bool Login(string userName)
+        public bool Login(string userName)
         {
             return true;
         }

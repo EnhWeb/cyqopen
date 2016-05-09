@@ -14,10 +14,14 @@ namespace OAuth2
             {
                 if (!string.IsNullOrEmpty(ob.Value.AppKey))
                 {
-                    sb.AppendFormat(link, string.Format(ob.Value.OAuthUrl, ob.Value.AppKey,System.Web.HttpUtility.UrlEncode(ob.Value.CallbackUrl), ob.Key), ob.Value.ImgUrl);
+                    sb.AppendFormat(link, ob.Value.OAuthUrl, ob.Value.ImgUrl);
                 }
             }
             return sb.ToString();
+        }
+        public static void GoTo(OAuthServer oas)
+        {
+            System.Web.HttpContext.Current.Response.Redirect(OAuth2Factory.ServerList[oas.ToString()].OAuthUrl);
         }
     }
 

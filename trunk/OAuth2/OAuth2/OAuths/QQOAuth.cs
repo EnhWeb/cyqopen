@@ -6,7 +6,7 @@ namespace OAuth2
 {
     public class QQOAuth : OAuth2Base
     {
-        internal override OAuthServer server
+        internal override OAuthServer Server
         {
             get
             {
@@ -24,7 +24,7 @@ namespace OAuth2
         {
             get
             {
-                return "https://graph.qq.com/oauth2.0/authorize?response_type=code&client_id={0}&redirect_uri={1}&state={2}";
+                return string.Format("https://graph.qq.com/oauth2.0/authorize?response_type=code&client_id={0}&redirect_uri={1}&state={2}", AppKey, CallbackUrl, Server);
             }
         }
         internal override string TokenUrl

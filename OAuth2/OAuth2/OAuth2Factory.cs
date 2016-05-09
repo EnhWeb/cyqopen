@@ -65,7 +65,7 @@ namespace OAuth2
             HttpCookie cookie = HttpContext.Current.Request.Cookies["OAuth2Code"];
             if (cookie != null)
             {
-                o = CacheManage.Instance.Get(cookie.Value);
+                o = CacheManage.Instance.Get("OAuth2Code_" + cookie.Value);
             }
             if (o != null)
             {

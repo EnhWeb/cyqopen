@@ -51,6 +51,7 @@ namespace CYQ.Visualizer
             dg.Parent = form;
             dg.ReadOnly = true;
             dg.Dock = DockStyle.Fill;
+            dg.ScrollBars = ScrollBars.Both;
             dg.AutoSize = true;
             dg.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             //dg.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.;
@@ -88,6 +89,7 @@ namespace CYQ.Visualizer
             dg.Parent = form;
             dg.ReadOnly = true;
             dg.Dock = DockStyle.Fill;
+            dg.ScrollBars = ScrollBars.Both;
             dg.AutoSize = true;
             dg.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             //dg.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.;
@@ -127,6 +129,7 @@ namespace CYQ.Visualizer
             dg.ReadOnly = true;
             dg.Dock = DockStyle.Fill;
             dg.AutoSize = true;
+            dg.ScrollBars = ScrollBars.Both;
             dg.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             //dg.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.;
             try

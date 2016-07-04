@@ -79,7 +79,7 @@ namespace CYQ.Data.ProjectTool
             bool result = false;
             using (ProjectConfig config = new ProjectConfig())
             {
-                config.SetAutoParentControl(gbConn, gbBuild);
+                config.UI.SetAutoParentControl(gbConn, gbBuild);
 
                 if (config.Fill("Name='" + name + "'"))
                 {
@@ -114,7 +114,7 @@ namespace CYQ.Data.ProjectTool
                 {
                     if (config.Fill("Name='" + name + "'"))
                     {
-                        config.SetToAll(this);
+                        config.UI.SetToAll(this);
                     }
                 }
             }

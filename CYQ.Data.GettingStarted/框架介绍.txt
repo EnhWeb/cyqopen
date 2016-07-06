@@ -1,0 +1,2 @@
+CYQ.Data 从入门到放弃ORM系列：开篇：自动化框架编程思维
+http://www.cnblogs.com/cyq1162/p/5634414.html

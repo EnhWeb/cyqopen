@@ -30,26 +30,27 @@
         {
             this.dgView = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.rtxtSql = new System.Windows.Forms.RichTextBox();
-            this.btnFill = new System.Windows.Forms.Button();
-            this.txtUserID = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtName = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
+            this.chbInsertID = new System.Windows.Forms.CheckBox();
+            this.btnMutipleOperator = new System.Windows.Forms.Button();
+            this.btnOpenMutipleTable = new System.Windows.Forms.Button();
+            this.btnNoDelete = new System.Windows.Forms.Button();
+            this.btnDelete = new System.Windows.Forms.Button();
+            this.btnUpdate = new System.Windows.Forms.Button();
+            this.btnInsert = new System.Windows.Forms.Button();
+            this.txtEditTime = new System.Windows.Forms.TextBox();
+            this.txtCreateTime = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.txtCreateTime = new System.Windows.Forms.TextBox();
-            this.btnInsert = new System.Windows.Forms.Button();
-            this.label5 = new System.Windows.Forms.Label();
-            this.txtEditTime = new System.Windows.Forms.TextBox();
-            this.btnUpdate = new System.Windows.Forms.Button();
-            this.btnDelete = new System.Windows.Forms.Button();
-            this.btnNoDelete = new System.Windows.Forms.Button();
-            this.btnOpenMutipleTable = new System.Windows.Forms.Button();
+            this.txtName = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtUserID = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.btn = new System.Windows.Forms.Button();
-            this.btnMutipleOperator = new System.Windows.Forms.Button();
-            this.chbInsertID = new System.Windows.Forms.CheckBox();
+            this.btnFill = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.rtxtSql = new System.Windows.Forms.RichTextBox();
+            this.Pager = new TActionProject.PagerControl();
             ((System.ComponentModel.ISupportInitialize)(this.dgView)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -57,11 +58,10 @@
             // dgView
             // 
             this.dgView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgView.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.dgView.Location = new System.Drawing.Point(0, 253);
             this.dgView.Name = "dgView";
             this.dgView.RowTemplate.Height = 23;
-            this.dgView.Size = new System.Drawing.Size(754, 190);
+            this.dgView.Size = new System.Drawing.Size(754, 162);
             this.dgView.TabIndex = 0;
             // 
             // groupBox1
@@ -85,7 +85,6 @@
             this.groupBox1.Controls.Add(this.btn);
             this.groupBox1.Controls.Add(this.btnFill);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Left;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(389, 253);
@@ -93,65 +92,99 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Users表";
             // 
-            // label1
+            // chbInsertID
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 21);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(17, 12);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "PK";
+            this.chbInsertID.AutoSize = true;
+            this.chbInsertID.Location = new System.Drawing.Point(15, 209);
+            this.chbInsertID.Name = "chbInsertID";
+            this.chbInsertID.Size = new System.Drawing.Size(84, 16);
+            this.chbInsertID.TabIndex = 5;
+            this.chbInsertID.Text = "手工插主键";
+            this.chbInsertID.UseVisualStyleBackColor = true;
             // 
-            // rtxtSql
+            // btnMutipleOperator
             // 
-            this.rtxtSql.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rtxtSql.Location = new System.Drawing.Point(389, 0);
-            this.rtxtSql.Name = "rtxtSql";
-            this.rtxtSql.Size = new System.Drawing.Size(365, 253);
-            this.rtxtSql.TabIndex = 2;
-            this.rtxtSql.Text = "";
+            this.btnMutipleOperator.Location = new System.Drawing.Point(295, 176);
+            this.btnMutipleOperator.Name = "btnMutipleOperator";
+            this.btnMutipleOperator.Size = new System.Drawing.Size(75, 23);
+            this.btnMutipleOperator.TabIndex = 4;
+            this.btnMutipleOperator.Text = "多表操作";
+            this.btnMutipleOperator.UseVisualStyleBackColor = true;
+            this.btnMutipleOperator.Click += new System.EventHandler(this.btnMutipleOperator_Click);
             // 
-            // btnFill
+            // btnOpenMutipleTable
             // 
-            this.btnFill.Location = new System.Drawing.Point(212, 18);
-            this.btnFill.Name = "btnFill";
-            this.btnFill.Size = new System.Drawing.Size(75, 23);
-            this.btnFill.TabIndex = 1;
-            this.btnFill.Text = "Fill";
-            this.btnFill.UseVisualStyleBackColor = true;
-            this.btnFill.Click += new System.EventHandler(this.btnFill_Click);
+            this.btnOpenMutipleTable.Location = new System.Drawing.Point(295, 209);
+            this.btnOpenMutipleTable.Name = "btnOpenMutipleTable";
+            this.btnOpenMutipleTable.Size = new System.Drawing.Size(75, 23);
+            this.btnOpenMutipleTable.TabIndex = 4;
+            this.btnOpenMutipleTable.Text = "多表查询";
+            this.btnOpenMutipleTable.UseVisualStyleBackColor = true;
+            this.btnOpenMutipleTable.Click += new System.EventHandler(this.btnOpenMutipleTable_Click);
             // 
-            // txtUserID
+            // btnNoDelete
             // 
-            this.txtUserID.Location = new System.Drawing.Point(84, 18);
-            this.txtUserID.Name = "txtUserID";
-            this.txtUserID.Size = new System.Drawing.Size(100, 21);
-            this.txtUserID.TabIndex = 2;
+            this.btnNoDelete.Location = new System.Drawing.Point(295, 86);
+            this.btnNoDelete.Name = "btnNoDelete";
+            this.btnNoDelete.Size = new System.Drawing.Size(86, 23);
+            this.btnNoDelete.TabIndex = 3;
+            this.btnNoDelete.Text = "假Delete";
+            this.btnNoDelete.UseVisualStyleBackColor = true;
+            this.btnNoDelete.Click += new System.EventHandler(this.btnNoDelete_Click);
             // 
-            // label2
+            // btnDelete
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 57);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(29, 12);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Name";
+            this.btnDelete.Location = new System.Drawing.Point(295, 54);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(75, 23);
+            this.btnDelete.TabIndex = 3;
+            this.btnDelete.Text = "Delete";
+            this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
-            // txtName
+            // btnUpdate
             // 
-            this.txtName.Location = new System.Drawing.Point(84, 54);
-            this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(100, 21);
-            this.txtName.TabIndex = 2;
+            this.btnUpdate.Location = new System.Drawing.Point(295, 20);
+            this.btnUpdate.Name = "btnUpdate";
+            this.btnUpdate.Size = new System.Drawing.Size(75, 23);
+            this.btnUpdate.TabIndex = 3;
+            this.btnUpdate.Text = "Update";
+            this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
-            // label3
+            // btnInsert
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(13, 97);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(53, 12);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "Password";
+            this.btnInsert.Location = new System.Drawing.Point(109, 202);
+            this.btnInsert.Name = "btnInsert";
+            this.btnInsert.Size = new System.Drawing.Size(75, 23);
+            this.btnInsert.TabIndex = 3;
+            this.btnInsert.Text = "Insert";
+            this.btnInsert.UseVisualStyleBackColor = true;
+            this.btnInsert.Click += new System.EventHandler(this.btnInsert_Click);
+            // 
+            // txtEditTime
+            // 
+            this.txtEditTime.Location = new System.Drawing.Point(84, 173);
+            this.txtEditTime.Name = "txtEditTime";
+            this.txtEditTime.ReadOnly = true;
+            this.txtEditTime.Size = new System.Drawing.Size(100, 21);
+            this.txtEditTime.TabIndex = 2;
+            // 
+            // txtCreateTime
+            // 
+            this.txtCreateTime.Location = new System.Drawing.Point(84, 137);
+            this.txtCreateTime.Name = "txtCreateTime";
+            this.txtCreateTime.Size = new System.Drawing.Size(100, 21);
+            this.txtCreateTime.TabIndex = 2;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(13, 176);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(53, 12);
+            this.label5.TabIndex = 0;
+            this.label5.Text = "EditTime";
             // 
             // txtPassword
             // 
@@ -169,79 +202,37 @@
             this.label4.TabIndex = 0;
             this.label4.Text = "CreateTime";
             // 
-            // txtCreateTime
+            // txtName
             // 
-            this.txtCreateTime.Location = new System.Drawing.Point(84, 137);
-            this.txtCreateTime.Name = "txtCreateTime";
-            this.txtCreateTime.Size = new System.Drawing.Size(100, 21);
-            this.txtCreateTime.TabIndex = 2;
+            this.txtName.Location = new System.Drawing.Point(84, 54);
+            this.txtName.Name = "txtName";
+            this.txtName.Size = new System.Drawing.Size(100, 21);
+            this.txtName.TabIndex = 2;
             // 
-            // btnInsert
+            // label3
             // 
-            this.btnInsert.Location = new System.Drawing.Point(109, 202);
-            this.btnInsert.Name = "btnInsert";
-            this.btnInsert.Size = new System.Drawing.Size(75, 23);
-            this.btnInsert.TabIndex = 3;
-            this.btnInsert.Text = "Insert";
-            this.btnInsert.UseVisualStyleBackColor = true;
-            this.btnInsert.Click += new System.EventHandler(this.btnInsert_Click);
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(13, 97);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(53, 12);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "Password";
             // 
-            // label5
+            // txtUserID
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(13, 176);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(53, 12);
-            this.label5.TabIndex = 0;
-            this.label5.Text = "EditTime";
+            this.txtUserID.Location = new System.Drawing.Point(84, 18);
+            this.txtUserID.Name = "txtUserID";
+            this.txtUserID.Size = new System.Drawing.Size(100, 21);
+            this.txtUserID.TabIndex = 2;
             // 
-            // txtEditTime
+            // label2
             // 
-            this.txtEditTime.Location = new System.Drawing.Point(84, 173);
-            this.txtEditTime.Name = "txtEditTime";
-            this.txtEditTime.ReadOnly = true;
-            this.txtEditTime.Size = new System.Drawing.Size(100, 21);
-            this.txtEditTime.TabIndex = 2;
-            // 
-            // btnUpdate
-            // 
-            this.btnUpdate.Location = new System.Drawing.Point(295, 20);
-            this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(75, 23);
-            this.btnUpdate.TabIndex = 3;
-            this.btnUpdate.Text = "Update";
-            this.btnUpdate.UseVisualStyleBackColor = true;
-            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
-            // 
-            // btnDelete
-            // 
-            this.btnDelete.Location = new System.Drawing.Point(295, 54);
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(75, 23);
-            this.btnDelete.TabIndex = 3;
-            this.btnDelete.Text = "Delete";
-            this.btnDelete.UseVisualStyleBackColor = true;
-            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
-            // 
-            // btnNoDelete
-            // 
-            this.btnNoDelete.Location = new System.Drawing.Point(295, 86);
-            this.btnNoDelete.Name = "btnNoDelete";
-            this.btnNoDelete.Size = new System.Drawing.Size(86, 23);
-            this.btnNoDelete.TabIndex = 3;
-            this.btnNoDelete.Text = "假Delete";
-            this.btnNoDelete.UseVisualStyleBackColor = true;
-            this.btnNoDelete.Click += new System.EventHandler(this.btnNoDelete_Click);
-            // 
-            // btnOpenMutipleTable
-            // 
-            this.btnOpenMutipleTable.Location = new System.Drawing.Point(295, 209);
-            this.btnOpenMutipleTable.Name = "btnOpenMutipleTable";
-            this.btnOpenMutipleTable.Size = new System.Drawing.Size(75, 23);
-            this.btnOpenMutipleTable.TabIndex = 4;
-            this.btnOpenMutipleTable.Text = "多表查询";
-            this.btnOpenMutipleTable.UseVisualStyleBackColor = true;
-            this.btnOpenMutipleTable.Click += new System.EventHandler(this.btnOpenMutipleTable_Click);
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(13, 57);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(29, 12);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Name";
             // 
             // btn
             // 
@@ -253,31 +244,53 @@
             this.btn.UseVisualStyleBackColor = true;
             this.btn.Click += new System.EventHandler(this.btn_Click);
             // 
-            // btnMutipleOperator
+            // btnFill
             // 
-            this.btnMutipleOperator.Location = new System.Drawing.Point(295, 176);
-            this.btnMutipleOperator.Name = "btnMutipleOperator";
-            this.btnMutipleOperator.Size = new System.Drawing.Size(75, 23);
-            this.btnMutipleOperator.TabIndex = 4;
-            this.btnMutipleOperator.Text = "多表操作";
-            this.btnMutipleOperator.UseVisualStyleBackColor = true;
-            this.btnMutipleOperator.Click += new System.EventHandler(this.btnMutipleOperator_Click);
+            this.btnFill.Location = new System.Drawing.Point(212, 18);
+            this.btnFill.Name = "btnFill";
+            this.btnFill.Size = new System.Drawing.Size(75, 23);
+            this.btnFill.TabIndex = 1;
+            this.btnFill.Text = "Fill";
+            this.btnFill.UseVisualStyleBackColor = true;
+            this.btnFill.Click += new System.EventHandler(this.btnFill_Click);
             // 
-            // chbInsertID
+            // label1
             // 
-            this.chbInsertID.AutoSize = true;
-            this.chbInsertID.Location = new System.Drawing.Point(15, 209);
-            this.chbInsertID.Name = "chbInsertID";
-            this.chbInsertID.Size = new System.Drawing.Size(84, 16);
-            this.chbInsertID.TabIndex = 5;
-            this.chbInsertID.Text = "手工插主键";
-            this.chbInsertID.UseVisualStyleBackColor = true;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(13, 21);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(17, 12);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "PK";
+            // 
+            // rtxtSql
+            // 
+            this.rtxtSql.Location = new System.Drawing.Point(389, 0);
+            this.rtxtSql.Name = "rtxtSql";
+            this.rtxtSql.Size = new System.Drawing.Size(365, 253);
+            this.rtxtSql.TabIndex = 2;
+            this.rtxtSql.Text = "";
+            // 
+            // Pager
+            // 
+            this.Pager.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.Pager.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.Pager.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(78)))), ((int)(((byte)(151)))));
+            this.Pager.JumpText = "Go";
+            this.Pager.Location = new System.Drawing.Point(0, 414);
+            this.Pager.Name = "Pager";
+            this.Pager.PageIndex = 1;
+            this.Pager.PageSize = 10;
+            this.Pager.RecordCount = 0;
+            this.Pager.Size = new System.Drawing.Size(754, 29);
+            this.Pager.TabIndex = 3;
             // 
             // 单表操作
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(754, 443);
+            this.Controls.Add(this.Pager);
             this.Controls.Add(this.rtxtSql);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.dgView);
@@ -315,6 +328,7 @@
         private System.Windows.Forms.Button btn;
         private System.Windows.Forms.Button btnMutipleOperator;
         private System.Windows.Forms.CheckBox chbInsertID;
+        private TActionProject.PagerControl Pager;
 
     }
 }

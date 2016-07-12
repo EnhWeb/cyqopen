@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CYQ.Data">
+      <HintPath>..\..\..\..\dll&amp;document\CYQ.Data.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
@@ -92,12 +95,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\..\Project\MyProject\MySpace\CYQ.Data\CYQ.Data.csproj">
-      <Project>{bd5ccc87-278f-4feb-ad23-157fcba9ffa1}</Project>
-      <Name>CYQ.Data</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="数据库链接示例.txt" />

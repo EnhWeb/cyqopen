@@ -217,7 +217,7 @@
         </member>
         <member name="P:CYQ.Data.AppConfig.Log.LogTableName">
             <summary>
-            异常日志表名（默认为ErrorLogs，可配置）
+            异常日志表名（默认为SysLogs，可配置）
             </summary>
         </member>
         <member name="T:CYQ.Data.AppConfig.Debug">
@@ -227,12 +227,12 @@
         </member>
         <member name="P:CYQ.Data.AppConfig.Debug.SqlFilter">
              <summary>
-            毫秒数（将所有长时间(ms)的SQL语句写入日志，对应配置项LogPath的路径）
+            毫秒数（这个是在对所有SQL语句的：将所有长时间(ms)的SQL语句写入日志，对应配置项LogPath的路径）
              </summary>
         </member>
         <member name="P:CYQ.Data.AppConfig.Debug.InfoFilter">
             <summary>
-            毫秒数（可通过此项设置条件过滤出时间(ms)较长的SQL语句）
+            毫秒数（这个是在AppDebug开启后的：可通过此项设置条件过滤出时间(ms)较长的SQL语句）
             </summary>
         </member>
         <member name="P:CYQ.Data.AppConfig.Debug.OpenDebugInfo">
@@ -3304,6 +3304,14 @@
             静态的对IField接口处理
             </summary>
         </member>
+        <member name="M:CYQ.Data.SQL.SqlFormat.FormatDefaultValue(CYQ.Data.DalType,System.Object,System.Int32,System.Data.SqlDbType)">
+            <summary>
+            将各数据库默认值格式化成标准值，将标准值还原成各数据库默认值
+            </summary>
+            <param name="flag">[0:转成标准值],[1:转成各数据库值],[2:转成各数据库值并补充字符串前后缀]</param>
+            <param name="sqlDbType">该列的值</param>
+            <returns></returns>
+        </member>
         <member name="T:CYQ.Data.SQL.SqlValue">
             <summary>
             用于多数据库兼容的替换关键字/函数
@@ -3677,13 +3685,10 @@
             表结构类
             </summary>
         </member>
-        <member name="M:CYQ.Data.SQL.TableSchema.FormatDefaultValue(CYQ.Data.DalType,System.Object,System.Int32,System.Data.SqlDbType)">
+        <member name="M:CYQ.Data.SQL.TableSchema.GetTables(CYQ.Data.DbBase@)">
             <summary>
-            将各数据库默认值格式化成标准值，将标准值还原成各数据库默认值
+            获取表（带缓存）
             </summary>
-            <param name="flag">[0:转成标准值],[1:转成各数据库值],[2:转成各数据库值并补充字符串前后缀]</param>
-            <param name="sqlDbType">该列的值</param>
-            <returns></returns>
         </member>
         <member name="M:CYQ.Data.SQL.TableSchema.GetSchemaKey(System.String,System.String,CYQ.Data.DalType)">
             <summary>
@@ -4132,9 +4137,15 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:CYQ.Data.Table.MDataRow.CreateFrom(System.Object)">
+            <summary>
+            从实体、Json、Xml、IEnumerable接口实现的类、MDataRow
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:CYQ.Data.Table.MDataRow.CreateFrom(System.Object,System.Type)">
             <summary>
-            从一个字典集合创建数据行。
+            从实体、Json、Xml、IEnumerable接口实现的类、MDataRow
             </summary>
         </member>
         <member name="M:CYQ.Data.Table.MDataRow.ToJson">
@@ -4334,7 +4345,7 @@
         </member>
         <member name="M:CYQ.Data.Table.MDataTableBatchAction.FixTable(CYQ.Data.Table.MDataColumn)">
             <summary>
-            进行列修正
+            进行列修正（只有移除 和 修正类型，若无主键列，则新增主键列）
             </summary>
         </member>
         <member name="M:CYQ.Data.Table.MDataTableBatchAction.SetJoinPrimaryKeys(System.Object[])">

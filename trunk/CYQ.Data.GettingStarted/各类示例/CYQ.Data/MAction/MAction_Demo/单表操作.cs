@@ -17,18 +17,27 @@ namespace MAction_Demo
         {
             AppConfig.DB.EditTimeFields = "EditTime";//该配置的字段，在更新时会自动被更新时间。
             InitializeComponent();
+            Pager.OnPageChanged += Pager_OnPageChanged;
         }
+
+        void Pager_OnPageChanged(object sender, EventArgs e)
+        {
+            LoadData();
+        }
+
+
 
         private void 单表操作_Load(object sender, EventArgs e)
         {
             LoadData();
+
         }
         private void LoadData()
         {
             MDataTable dt;
             using (MAction action = new MAction(tableName))
             {
-                dt = action.Select("order by " + action.Data.PrimaryCell.ColumnName + " desc");
+                dt = action.Select(Pager.PageIndex, Pager.PageSize, "order by " + action.Data.PrimaryCell.ColumnName + " desc");
                 OutDebugSql(action.DebugInfo);
             }
             if (dt != null && dt.Rows.Count > 0)
@@ -39,6 +48,7 @@ namespace MAction_Demo
                 }
             }
             dt.Bind(dgView);
+            Pager.DrawControl(dt.RecordsAffected);
         }
 
         private void OutDebugSql(string msg)

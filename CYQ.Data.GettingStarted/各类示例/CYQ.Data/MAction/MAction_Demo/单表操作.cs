@@ -76,12 +76,15 @@ namespace MAction_Demo
         {
             using (MAction action = new MAction(tableName))
             {
-                action.AllowInsertID = chbInsertID.Checked;
-                action.UI.SetAutoParentControl(this);//Web开发的不需要这条
-                if (action.Insert(true, InsertOp.ID))
+                if (!action.Exists(txtName))
                 {
-                    action.UI.SetToAll(this);
-                    LoadData();
+                    action.AllowInsertID = chbInsertID.Checked;
+                    action.UI.SetAutoParentControl(this);//Web开发的不需要这条
+                    if (action.Insert(true, InsertOp.ID))
+                    {
+                        action.UI.SetToAll(this);
+                        LoadData();
+                    }
                 }
                 OutDebugSql(action.DebugInfo);
             }

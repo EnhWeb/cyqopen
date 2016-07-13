@@ -1,8 +1,0 @@
-F:\Code\开源代码\CYQ.Data.GettingStarted\各类示例\CYQ.Data.Aop\Aop_Demo\MyAopForDemo\bin\Debug\MyAopForDemo.dll
-F:\Code\开源代码\CYQ.Data.GettingStarted\各类示例\CYQ.Data.Aop\Aop_Demo\MyAopForDemo\bin\Debug\MyAopForDemo.pdb
-F:\Code\开源代码\CYQ.Data.GettingStarted\各类示例\CYQ.Data.Aop\Aop_Demo\MyAopForDemo\bin\Debug\CYQ.Data.dll
-F:\Code\开源代码\CYQ.Data.GettingStarted\各类示例\CYQ.Data.Aop\Aop_Demo\MyAopForDemo\bin\Debug\CYQ.Data.xml
-F:\Code\开源代码\CYQ.Data.GettingStarted\各类示例\CYQ.Data.Aop\Aop_Demo\MyAopForDemo\obj\Debug\MyAopForDemo.dll
-F:\Code\开源代码\CYQ.Data.GettingStarted\各类示例\CYQ.Data.Aop\Aop_Demo\MyAopForDemo\obj\Debug\MyAopForDemo.pdb
-F:\Code\开源代码\CYQ.Data.GettingStarted\各类示例\CYQ.Data.Aop\Aop_Demo\Aop_Demo\bin\Debug\MyAopForDemo.dll
-F:\Code\开源代码\CYQ.Data.GettingStarted\各类示例\CYQ.Data.Aop\Aop_Demo\Aop_Demo\bin\Debug\MyAopForDemo.pdb

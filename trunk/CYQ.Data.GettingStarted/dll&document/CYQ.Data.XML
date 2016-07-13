@@ -656,6 +656,11 @@
             当前操作的数据库类型[Access/Mssql/Oracle/SQLite/MySql/Txt/Xml等]
             </summary>
         </member>
+        <member name="P:CYQ.Data.MAction.DataBase">
+            <summary>
+            当前操作的数据库名称
+            </summary>
+        </member>
         <member name="P:CYQ.Data.MAction.DalVersion">
             <summary>
             当前操作的数据库的版本号
@@ -850,6 +855,11 @@
         <member name="P:CYQ.Data.MProc.DalType">
             <summary>
             当前操作的数据库类型[Access/Mssql/Oracle/SQLite/MySql等]
+            </summary>
+        </member>
+        <member name="P:CYQ.Data.MProc.DataBase">
+            <summary>
+            当前操作的数据库名称
             </summary>
         </member>
         <member name="P:CYQ.Data.MProc.DalVersion">
@@ -4688,6 +4698,52 @@
             数据库工具类[都是静态方法]
             </summary>
         </member>
+        <member name="M:CYQ.Data.Tool.DBTool.GetDalType(System.String)">
+            <summary>
+            获取数据库链接的数据库类型
+            </summary>
+            <param name="conn">链接配置Key或数据库链接语句</param>
+            <returns></returns>
+        </member>
+        <member name="M:CYQ.Data.Tool.DBTool.GetDataType(CYQ.Data.Table.MCellStruct,CYQ.Data.DalType,System.String)">
+            <summary>
+            获取指定数据库的数据类型
+            </summary>
+            <param name="ms">单元格结构</param>
+            <param name="dalType">数据库类型</param>
+            <param name="version">数据库版本号</param>
+            <returns></returns>
+        </member>
+        <member name="M:CYQ.Data.Tool.DBTool.TestConn(System.String)">
+            <summary>
+            测试数据库链接语句
+            </summary>
+            <param name="conn">链接配置Key或数据库链接语句</param>
+            <returns></returns>
+        </member>
+        <member name="M:CYQ.Data.Tool.DBTool.GetTables(System.String)">
+            <summary>
+            获取数据库表
+            </summary>
+        </member>
+        <member name="M:CYQ.Data.Tool.DBTool.GetTables(System.String,System.String@)">
+            <summary>
+            获取数据库表
+            </summary>
+        </member>
+        <member name="M:CYQ.Data.Tool.DBTool.GetTables(System.String,System.String@,System.String@)">
+            <summary>
+            获取所有表（表名+表说明）【链接错误时，抛异常】
+            </summary>
+            <param name="conn">数据库链接</param>
+            <param name="dbName">返回指定链接的数据库名称</param>
+            <param name="errInfo">链接错误时的信息信息</param>
+        </member>
+        <member name="M:CYQ.Data.Tool.DBTool.ExistsTable(System.String)">
+            <summary>
+            是否存在表
+            </summary>
+        </member>
         <member name="M:CYQ.Data.Tool.DBTool.ExistsTable(System.String,System.String)">
             <summary>
             是否存在指定的表
@@ -4710,104 +4766,6 @@
             <param name="tableName">表名</param>
             <param name="conn">数据库链接</param>
             <param name="dalType">数据库类型</param>
-        </member>
-        <member name="M:CYQ.Data.Tool.DBTool.GetDalType(System.String)">
-            <summary>
-            获取数据库链接的数据库类型
-            </summary>
-            <param name="conn">链接配置Key或数据库链接语句</param>
-            <returns></returns>
-        </member>
-        <member name="M:CYQ.Data.Tool.DBTool.TestConn(System.String)">
-            <summary>
-            测试数据库链接语句
-            </summary>
-            <param name="conn">链接配置Key或数据库链接语句</param>
-            <returns></returns>
-        </member>
-        <member name="M:CYQ.Data.Tool.DBTool.GetSchema(System.String,System.String,System.String[])">
-            <summary>
-            获取表架构
-            </summary>
-            <param name="conn">数据库链接</param>
-            <param name="connectionName">指定要返回架构的名称</param>
-            <param name="restrictionValues">为指定的架构返回一组限制值</param>
-        </member>
-        <member name="M:CYQ.Data.Tool.DBTool.GetColumns(System.Type)">
-            <summary>
-            获取表列架构
-            </summary>
-        </member>
-        <member name="M:CYQ.Data.Tool.DBTool.GetColumns(System.Object)">
-            <summary>
-            获取表列架构
-            </summary>
-            <param name="tableName">表名</param>
-        </member>
-        <member name="M:CYQ.Data.Tool.DBTool.GetColumns(System.String,System.String,System.String@)">
-            <summary>
-            获取表列架构（链接错误时，抛异常）
-            </summary>
-            <param name="tableName">表名</param>
-            <param name="conn">数据库链接</param>
-            <param name="errInfo">出错时的错误信息</param>
-            <returns></returns>
-        </member>
-        <member name="M:CYQ.Data.Tool.DBTool.GetColumns(System.String,System.String)">
-            <summary>
-            获取表列架构
-            </summary>
-            <param name="tableName">表名</param>
-            <param name="conn">数据库链接</param>
-            <returns></returns>
-        </member>
-        <member name="M:CYQ.Data.Tool.DBTool.GetTables(System.String)">
-            <summary>
-            获取数据库表
-            </summary>
-        </member>
-        <member name="M:CYQ.Data.Tool.DBTool.GetTables(System.String,System.String@)">
-            <summary>
-            获取数据库表
-            </summary>
-        </member>
-        <member name="M:CYQ.Data.Tool.DBTool.GetTables(System.String,System.String@,System.String@)">
-            <summary>
-            获取所有表（表名+表说明）【链接错误时，抛异常】
-            </summary>
-            <param name="conn">数据库链接</param>
-            <param name="dbName">返回指定链接的数据库名称</param>
-            <param name="errInfo">链接错误时的信息信息</param>
-        </member>
-        <member name="M:CYQ.Data.Tool.DBTool.Keyword(System.String,CYQ.Data.DalType)">
-            <summary>
-            为字段或表名添加关键字标签：如[],''等符号
-            </summary>
-            <param name="name">表名或字段名</param>
-            <param name="dalType">数据类型</param>
-            <returns></returns>
-        </member>
-        <member name="M:CYQ.Data.Tool.DBTool.NotKeyword(System.String)">
-            <summary>
-            取消字段或表名添加关键字标签：如[],''等符号
-            </summary>
-            <param name="name">表名或字段名</param>
-        </member>
-        <member name="M:CYQ.Data.Tool.DBTool.FormatDefaultValue(CYQ.Data.DalType,System.Object,System.Int32,System.Data.SqlDbType)">
-            <summary>
-            将各数据库默认值格式化成标准值，将标准值还原成各数据库默认值
-            </summary>
-            <param name="flag">[0:转成标准值],[1:转成各数据库值]</param>
-            <returns></returns>
-        </member>
-        <member name="M:CYQ.Data.Tool.DBTool.GetDataType(CYQ.Data.Table.MCellStruct,CYQ.Data.DalType,System.String)">
-            <summary>
-            获取指定数据库的数据类型
-            </summary>
-            <param name="ms">单元格结构</param>
-            <param name="dalType">数据库类型</param>
-            <param name="version">数据库版本号</param>
-            <returns></returns>
         </member>
         <member name="M:CYQ.Data.Tool.DBTool.CreateTable(System.String,CYQ.Data.Table.MDataColumn)">
             <summary>
@@ -4851,6 +4809,75 @@
             <param name="tableName">表名</param>
             <param name="columns">列结构</param>
             <param name="conn">数据库链接</param>
+            <returns></returns>
+        </member>
+        <member name="M:CYQ.Data.Tool.DBTool.DropTable(System.String)">
+            <summary>
+            移除一张表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CYQ.Data.Tool.DBTool.DropTable(System.String,System.String)">
+            <summary>
+            移除一张表
+            <param name="conn">数据库链接</param>
+            </summary>
+        </member>
+        <member name="M:CYQ.Data.Tool.DBTool.GetSchema(System.String,System.String,System.String[])">
+            <summary>
+            获取表架构
+            </summary>
+            <param name="conn">数据库链接</param>
+            <param name="connectionName">指定要返回架构的名称</param>
+            <param name="restrictionValues">为指定的架构返回一组限制值</param>
+        </member>
+        <member name="M:CYQ.Data.Tool.DBTool.GetColumns(System.Type)">
+            <summary>
+            获取表列架构
+            </summary>
+        </member>
+        <member name="M:CYQ.Data.Tool.DBTool.GetColumns(System.Object)">
+            <summary>
+            获取表列架构
+            </summary>
+            <param name="tableName">表名</param>
+        </member>
+        <member name="M:CYQ.Data.Tool.DBTool.GetColumns(System.String,System.String,System.String@)">
+            <summary>
+            获取表列架构（链接错误时，抛异常）
+            </summary>
+            <param name="tableName">表名</param>
+            <param name="conn">数据库链接</param>
+            <param name="errInfo">出错时的错误信息</param>
+            <returns></returns>
+        </member>
+        <member name="M:CYQ.Data.Tool.DBTool.GetColumns(System.String,System.String)">
+            <summary>
+            获取表列架构
+            </summary>
+            <param name="tableName">表名</param>
+            <param name="conn">数据库链接</param>
+            <returns></returns>
+        </member>
+        <member name="M:CYQ.Data.Tool.DBTool.Keyword(System.String,CYQ.Data.DalType)">
+            <summary>
+            为字段或表名添加关键字标签：如[],''等符号
+            </summary>
+            <param name="name">表名或字段名</param>
+            <param name="dalType">数据类型</param>
+            <returns></returns>
+        </member>
+        <member name="M:CYQ.Data.Tool.DBTool.NotKeyword(System.String)">
+            <summary>
+            取消字段或表名添加关键字标签：如[],''等符号
+            </summary>
+            <param name="name">表名或字段名</param>
+        </member>
+        <member name="M:CYQ.Data.Tool.DBTool.FormatDefaultValue(CYQ.Data.DalType,System.Object,System.Int32,System.Data.SqlDbType)">
+            <summary>
+            将各数据库默认值格式化成标准值，将标准值还原成各数据库默认值
+            </summary>
+            <param name="flag">[0:转成标准值],[1:转成各数据库值]</param>
             <returns></returns>
         </member>
         <member name="M:CYQ.Data.Tool.DBTool.GetMapTableName(System.String,System.String)">

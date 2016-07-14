@@ -896,15 +896,15 @@
         </member>
         <member name="M:CYQ.Data.NoSqlAction.ResetStaticVar">
             <summary>
-            重置静态变量（每次批量更新后调用）
+            重置静态变量（方便回收内存，避免大量导数据后内存不回收）
             </summary>
         </member>
         <member name="F:CYQ.Data.NoSqlAction._needToSaveState">
             <summary>
-             是否需要更新：0未更新；1仅插入[往后面插数据]；2更新删除或插入[重新保存]
+             是否需要更新：0未更新；1仅插入[往后面插数据]；2更新删除或插入[重新保存],//需要更新[全局的可以有效处理并发]
             </summary>
         </member>
-        <member name="F:CYQ.Data.NoSqlAction._lastWriteTimeUtc">
+        <member name="F:CYQ.Data.NoSqlAction._Table">
             <summary>
             最后的写入时间
             </summary>
@@ -3548,7 +3548,6 @@
             <summary>
             将异常写入文件
             </summary>
-            <param name="attachInfo">附加信息</param>
         </member>
         <member name="M:CYQ.Data.Log.GetExceptionMessage(System.Exception)">
             <summary>

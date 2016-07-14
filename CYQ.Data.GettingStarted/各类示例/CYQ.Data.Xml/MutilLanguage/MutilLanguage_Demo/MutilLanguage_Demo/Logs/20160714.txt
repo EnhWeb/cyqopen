@@ -1,0 +1,9 @@
+
+------------------------
+V5.6.2.7 Record On : 2016/7/14 11:56:07 
+------------------------
+
+LocalCache.ClearState:正在中止线程。:
+   在 System.Threading.Thread.SleepInternal(Int32 millisecondsTimeout)
+   在 System.Threading.Thread.Sleep(TimeSpan timeout)
+   在 CYQ.Data.Cache.LocalCache.ClearState(Object threadID)

@@ -2173,7 +2173,7 @@
             <param name="where">条件</param>
             <returns></returns>
         </member>
-        <member name="M:CYQ.Data.Orm.DBFast.Insert``1(``0,CYQ.Data.InsertOp)">
+        <member name="M:CYQ.Data.Orm.DBFast.Insert``1(``0,CYQ.Data.InsertOp,System.Boolean)">
             <summary>
             添加一条记录
             </summary>
@@ -2189,6 +2189,11 @@
             <param name="t">实体对象</param>
             <param name="where">条件</param>
             <returns></returns>
+        </member>
+        <member name="M:CYQ.Data.Orm.DBFast.Exists``1(System.Object)">
+            <summary>
+            是否存在指定的条件
+            </summary>
         </member>
         <member name="T:CYQ.Data.Orm.OrmBase">
             <summary>

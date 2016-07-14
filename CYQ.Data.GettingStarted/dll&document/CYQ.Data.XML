@@ -2484,7 +2484,7 @@
             </summary>
             <param name="autoSetValue">自动从控制获取值</param>
         </member>
-        <member name="M:CYQ.Data.Orm.SimpleOrmBase.Insert(System.Boolean,CYQ.Data.InsertOp)">
+        <member name="M:CYQ.Data.Orm.SimpleOrmBase.Insert(System.Boolean,CYQ.Data.InsertOp,System.Boolean)">
             <summary>
              插入数据
             </summary>

@@ -4054,6 +4054,11 @@
             <param name="readTxtOrXml">是否从.txt或.xml文件中读取架构（默认为true）</param>
             <returns></returns>
         </member>
+        <member name="P:CYQ.Data.Table.MDataColumn.Table">
+            <summary>
+            架构所引用的表
+            </summary>
+        </member>
         <member name="P:CYQ.Data.Table.MDataColumn.JointPrimary">
             <summary>
             联合主键

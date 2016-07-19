@@ -33,41 +33,46 @@ namespace MAction_Demo
         }
         private void btnTransation_Click(object sender, EventArgs e)
         {
-            MDataTable dt = null;
-            string guid = Guid.NewGuid().ToString();
-            using (MAction action = new MAction("Users"))
-            {
-                bool result = false;
-                action.SetTransLevel(IsolationLevel.ReadCommitted);//可设置的事务级别，一般可以不用设置
-                action.BeginTransation();//设置开启事务标识
-                action.Set("Name", guid.Substring(1, 5));
-                action.Set("Password", "123456");
-                int id = 0;
-                if (action.Insert())//第一个执行时，事务才被加载
+            //for (int i = 0; i < 100; i++)
+            //{
+
+
+                MDataTable dt = null;
+                string guid = Guid.NewGuid().ToString();
+                using (MAction action = new MAction("Users"))
                 {
-                    id = action.Get<int>(0);
-                    action.ResetTable("Article");
-                    action.Set("UserID", id);
-                    action.Set("Title", guid.Substring(3, 5));
-                    action.Set("Content", guid.Substring(5, 5));
-                    action.Set("PubTime", DateTime.Now);
-                    result = action.Insert(InsertOp.None);
+                    bool result = false;
+                    action.SetTransLevel(IsolationLevel.ReadCommitted);//可设置的事务级别，一般可以不用设置
+                    action.BeginTransation();//设置开启事务标识
+                    action.Set("Name", guid.Substring(1, 5));
+                    action.Set("Password", "123456");
+                    int id = 0;
+                    if (action.Insert())//第一个执行时，事务才被加载
+                    {
+                        id = action.Get<int>(0);
+                        action.ResetTable("Article");
+                        action.Set("UserID", id);
+                        action.Set("Title", guid.Substring(3, 5));
+                        action.Set("Content", guid.Substring(5, 5));
+                        action.Set("PubTime", DateTime.Now);
+                        result = action.Insert(InsertOp.None);
+                    }
+                    else
+                    {
+                        action.RollBack();//手工回滚
+                    }
+                    action.EndTransation();//提交事务
+                    if (result)
+                    {
+                        LoadData("UserID=" + id);
+                    }
+                    OutSql(action.DebugInfo);
                 }
-                else
+                if (dt != null)
                 {
-                    action.RollBack();//手工回滚
+                    dt.Bind(dgvView);
                 }
-                action.EndTransation();//提交事务
-                if (result)
-                {
-                    LoadData("UserID=" + id);
-                }
-                OutSql(action.DebugInfo);
-            }
-            if (dt != null)
-            {
-                dt.Bind(dgvView);
-            }
+            //}
         }
 
         private void 多表操作_Load(object sender, EventArgs e)

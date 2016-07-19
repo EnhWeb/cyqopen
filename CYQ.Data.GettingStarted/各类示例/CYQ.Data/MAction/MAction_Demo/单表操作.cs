@@ -47,7 +47,9 @@ namespace MAction_Demo
                     dt.Rows[0].SetToAll(this);
                 }
             }
-            dt.Bind(dgView);
+            //  dgView.DataSource = dt.ToDataTable();
+          // 
+           dt.Bind(dgView);
             Pager.DrawControl(dt.RecordsAffected);
         }
 
@@ -143,5 +145,14 @@ namespace MAction_Demo
             多表操作 m = new 多表操作();
             m.Show();
         }
+
+        private void chbAll_CheckedChanged(object sender, EventArgs e)
+        {
+            for (int i = 0; i < dgView.Rows.Count; i++)
+            {
+                dgView.Rows[i].Cells[0].Value = Convert.ToString(dgView.Rows[i].Cells[0].Value)!="True";
+            }
+        }
+
     }
 }

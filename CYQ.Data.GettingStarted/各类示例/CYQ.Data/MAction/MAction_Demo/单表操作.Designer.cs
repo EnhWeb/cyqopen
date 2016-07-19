@@ -51,6 +51,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.rtxtSql = new System.Windows.Forms.RichTextBox();
             this.Pager = new TActionProject.PagerControl();
+            this.chbAll = new System.Windows.Forms.CheckBox();
+            this.chbSelect = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgView)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -58,6 +60,8 @@
             // dgView
             // 
             this.dgView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.chbSelect});
             this.dgView.Location = new System.Drawing.Point(0, 253);
             this.dgView.Name = "dgView";
             this.dgView.RowTemplate.Height = 23;
@@ -66,6 +70,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.chbAll);
             this.groupBox1.Controls.Add(this.chbInsertID);
             this.groupBox1.Controls.Add(this.btnMutipleOperator);
             this.groupBox1.Controls.Add(this.btnOpenMutipleTable);
@@ -104,7 +109,7 @@
             // 
             // btnMutipleOperator
             // 
-            this.btnMutipleOperator.Location = new System.Drawing.Point(295, 176);
+            this.btnMutipleOperator.Location = new System.Drawing.Point(222, 137);
             this.btnMutipleOperator.Name = "btnMutipleOperator";
             this.btnMutipleOperator.Size = new System.Drawing.Size(75, 23);
             this.btnMutipleOperator.TabIndex = 4;
@@ -114,7 +119,7 @@
             // 
             // btnOpenMutipleTable
             // 
-            this.btnOpenMutipleTable.Location = new System.Drawing.Point(295, 209);
+            this.btnOpenMutipleTable.Location = new System.Drawing.Point(308, 140);
             this.btnOpenMutipleTable.Name = "btnOpenMutipleTable";
             this.btnOpenMutipleTable.Size = new System.Drawing.Size(75, 23);
             this.btnOpenMutipleTable.TabIndex = 4;
@@ -280,10 +285,26 @@
             this.Pager.Location = new System.Drawing.Point(0, 414);
             this.Pager.Name = "Pager";
             this.Pager.PageIndex = 1;
-            this.Pager.PageSize = 10;
+            this.Pager.PageSize = 300;
             this.Pager.RecordCount = 0;
             this.Pager.Size = new System.Drawing.Size(754, 29);
             this.Pager.TabIndex = 3;
+            // 
+            // chbAll
+            // 
+            this.chbAll.AutoSize = true;
+            this.chbAll.Location = new System.Drawing.Point(333, 231);
+            this.chbAll.Name = "chbAll";
+            this.chbAll.Size = new System.Drawing.Size(48, 16);
+            this.chbAll.TabIndex = 6;
+            this.chbAll.Text = "全选";
+            this.chbAll.UseVisualStyleBackColor = true;
+            this.chbAll.CheckedChanged += new System.EventHandler(this.chbAll_CheckedChanged);
+            // 
+            // chbSelect
+            // 
+            this.chbSelect.HeaderText = "";
+            this.chbSelect.Name = "chbSelect";
             // 
             // 单表操作
             // 
@@ -329,6 +350,8 @@
         private System.Windows.Forms.Button btnMutipleOperator;
         private System.Windows.Forms.CheckBox chbInsertID;
         private TActionProject.PagerControl Pager;
+        private System.Windows.Forms.CheckBox chbAll;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn chbSelect;
 
     }
 }

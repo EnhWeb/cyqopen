@@ -29,16 +29,18 @@
         private void InitializeComponent()
         {
             this.dgView = new System.Windows.Forms.DataGridView();
+            this.chbSelect = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.chbAll = new System.Windows.Forms.CheckBox();
             this.chbInsertID = new System.Windows.Forms.CheckBox();
             this.btnMutipleOperator = new System.Windows.Forms.Button();
             this.btnOpenMutipleTable = new System.Windows.Forms.Button();
+            this.btnBatchDel = new System.Windows.Forms.Button();
             this.btnNoDelete = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnUpdate = new System.Windows.Forms.Button();
             this.btnInsert = new System.Windows.Forms.Button();
-            this.txtEditTime = new System.Windows.Forms.TextBox();
-            this.txtCreateTime = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -50,9 +52,10 @@
             this.btnFill = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.rtxtSql = new System.Windows.Forms.RichTextBox();
+            this.btnRemove = new System.Windows.Forms.Button();
+            this.txtEditTime = new System.Windows.Forms.DateTimePicker();
+            this.txtCreateTime = new System.Windows.Forms.DateTimePicker();
             this.Pager = new TActionProject.PagerControl();
-            this.chbAll = new System.Windows.Forms.CheckBox();
-            this.chbSelect = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgView)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -62,24 +65,33 @@
             this.dgView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.chbSelect});
-            this.dgView.Location = new System.Drawing.Point(0, 253);
+            this.dgView.Location = new System.Drawing.Point(0, 274);
             this.dgView.Name = "dgView";
             this.dgView.RowTemplate.Height = 23;
-            this.dgView.Size = new System.Drawing.Size(754, 162);
+            this.dgView.Size = new System.Drawing.Size(754, 177);
             this.dgView.TabIndex = 0;
+            this.dgView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgView_CellClick);
+            // 
+            // chbSelect
+            // 
+            this.chbSelect.HeaderText = "";
+            this.chbSelect.Name = "chbSelect";
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.txtCreateTime);
+            this.groupBox1.Controls.Add(this.txtEditTime);
+            this.groupBox1.Controls.Add(this.btnSave);
             this.groupBox1.Controls.Add(this.chbAll);
             this.groupBox1.Controls.Add(this.chbInsertID);
             this.groupBox1.Controls.Add(this.btnMutipleOperator);
             this.groupBox1.Controls.Add(this.btnOpenMutipleTable);
+            this.groupBox1.Controls.Add(this.btnRemove);
+            this.groupBox1.Controls.Add(this.btnBatchDel);
             this.groupBox1.Controls.Add(this.btnNoDelete);
             this.groupBox1.Controls.Add(this.btnDelete);
             this.groupBox1.Controls.Add(this.btnUpdate);
             this.groupBox1.Controls.Add(this.btnInsert);
-            this.groupBox1.Controls.Add(this.txtEditTime);
-            this.groupBox1.Controls.Add(this.txtCreateTime);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.txtPassword);
             this.groupBox1.Controls.Add(this.label4);
@@ -92,10 +104,31 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(389, 253);
+            this.groupBox1.Size = new System.Drawing.Size(389, 268);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Users表";
+            // 
+            // btnSave
+            // 
+            this.btnSave.Location = new System.Drawing.Point(272, 239);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(98, 23);
+            this.btnSave.TabIndex = 7;
+            this.btnSave.Text = "保存表格";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // chbAll
+            // 
+            this.chbAll.AutoSize = true;
+            this.chbAll.Location = new System.Drawing.Point(15, 246);
+            this.chbAll.Name = "chbAll";
+            this.chbAll.Size = new System.Drawing.Size(48, 16);
+            this.chbAll.TabIndex = 6;
+            this.chbAll.Text = "全选";
+            this.chbAll.UseVisualStyleBackColor = true;
+            this.chbAll.CheckedChanged += new System.EventHandler(this.chbAll_CheckedChanged);
             // 
             // chbInsertID
             // 
@@ -109,7 +142,7 @@
             // 
             // btnMutipleOperator
             // 
-            this.btnMutipleOperator.Location = new System.Drawing.Point(222, 137);
+            this.btnMutipleOperator.Location = new System.Drawing.Point(314, 171);
             this.btnMutipleOperator.Name = "btnMutipleOperator";
             this.btnMutipleOperator.Size = new System.Drawing.Size(75, 23);
             this.btnMutipleOperator.TabIndex = 4;
@@ -126,6 +159,16 @@
             this.btnOpenMutipleTable.Text = "多表查询";
             this.btnOpenMutipleTable.UseVisualStyleBackColor = true;
             this.btnOpenMutipleTable.Click += new System.EventHandler(this.btnOpenMutipleTable_Click);
+            // 
+            // btnBatchDel
+            // 
+            this.btnBatchDel.Location = new System.Drawing.Point(69, 239);
+            this.btnBatchDel.Name = "btnBatchDel";
+            this.btnBatchDel.Size = new System.Drawing.Size(86, 23);
+            this.btnBatchDel.TabIndex = 3;
+            this.btnBatchDel.Text = "批量Delete";
+            this.btnBatchDel.UseVisualStyleBackColor = true;
+            this.btnBatchDel.Click += new System.EventHandler(this.btnBatchDel_Click);
             // 
             // btnNoDelete
             // 
@@ -166,21 +209,6 @@
             this.btnInsert.Text = "Insert";
             this.btnInsert.UseVisualStyleBackColor = true;
             this.btnInsert.Click += new System.EventHandler(this.btnInsert_Click);
-            // 
-            // txtEditTime
-            // 
-            this.txtEditTime.Location = new System.Drawing.Point(84, 173);
-            this.txtEditTime.Name = "txtEditTime";
-            this.txtEditTime.ReadOnly = true;
-            this.txtEditTime.Size = new System.Drawing.Size(100, 21);
-            this.txtEditTime.TabIndex = 2;
-            // 
-            // txtCreateTime
-            // 
-            this.txtCreateTime.Location = new System.Drawing.Point(84, 137);
-            this.txtCreateTime.Name = "txtCreateTime";
-            this.txtCreateTime.Size = new System.Drawing.Size(100, 21);
-            this.txtCreateTime.TabIndex = 2;
             // 
             // label5
             // 
@@ -272,9 +300,40 @@
             // 
             this.rtxtSql.Location = new System.Drawing.Point(389, 0);
             this.rtxtSql.Name = "rtxtSql";
-            this.rtxtSql.Size = new System.Drawing.Size(365, 253);
+            this.rtxtSql.Size = new System.Drawing.Size(365, 268);
             this.rtxtSql.TabIndex = 2;
             this.rtxtSql.Text = "";
+            // 
+            // btnRemove
+            // 
+            this.btnRemove.Location = new System.Drawing.Point(161, 239);
+            this.btnRemove.Name = "btnRemove";
+            this.btnRemove.Size = new System.Drawing.Size(86, 23);
+            this.btnRemove.TabIndex = 3;
+            this.btnRemove.Text = "移除选中项";
+            this.btnRemove.UseVisualStyleBackColor = true;
+            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
+            // 
+            // txtEditTime
+            // 
+            this.txtEditTime.CustomFormat = "yyyy-MM-dd HH:mm:ss";
+            this.txtEditTime.Enabled = false;
+            this.txtEditTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.txtEditTime.Location = new System.Drawing.Point(84, 170);
+            this.txtEditTime.Name = "txtEditTime";
+            this.txtEditTime.Size = new System.Drawing.Size(152, 21);
+            this.txtEditTime.TabIndex = 8;
+            this.txtEditTime.Value = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
+            // 
+            // txtCreateTime
+            // 
+            this.txtCreateTime.CustomFormat = "yyyy-MM-dd HH:mm:ss";
+            this.txtCreateTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.txtCreateTime.Location = new System.Drawing.Point(84, 134);
+            this.txtCreateTime.Name = "txtCreateTime";
+            this.txtCreateTime.Size = new System.Drawing.Size(152, 21);
+            this.txtCreateTime.TabIndex = 8;
+            this.txtCreateTime.Value = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
             // 
             // Pager
             // 
@@ -282,7 +341,7 @@
             this.Pager.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.Pager.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(78)))), ((int)(((byte)(151)))));
             this.Pager.JumpText = "Go";
-            this.Pager.Location = new System.Drawing.Point(0, 414);
+            this.Pager.Location = new System.Drawing.Point(0, 448);
             this.Pager.Name = "Pager";
             this.Pager.PageIndex = 1;
             this.Pager.PageSize = 300;
@@ -290,27 +349,11 @@
             this.Pager.Size = new System.Drawing.Size(754, 29);
             this.Pager.TabIndex = 3;
             // 
-            // chbAll
-            // 
-            this.chbAll.AutoSize = true;
-            this.chbAll.Location = new System.Drawing.Point(333, 231);
-            this.chbAll.Name = "chbAll";
-            this.chbAll.Size = new System.Drawing.Size(48, 16);
-            this.chbAll.TabIndex = 6;
-            this.chbAll.Text = "全选";
-            this.chbAll.UseVisualStyleBackColor = true;
-            this.chbAll.CheckedChanged += new System.EventHandler(this.chbAll_CheckedChanged);
-            // 
-            // chbSelect
-            // 
-            this.chbSelect.HeaderText = "";
-            this.chbSelect.Name = "chbSelect";
-            // 
             // 单表操作
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(754, 443);
+            this.ClientSize = new System.Drawing.Size(754, 477);
             this.Controls.Add(this.Pager);
             this.Controls.Add(this.rtxtSql);
             this.Controls.Add(this.groupBox1);
@@ -334,8 +377,6 @@
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnUpdate;
         private System.Windows.Forms.Button btnInsert;
-        private System.Windows.Forms.TextBox txtEditTime;
-        private System.Windows.Forms.TextBox txtCreateTime;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.Label label4;
@@ -352,6 +393,11 @@
         private TActionProject.PagerControl Pager;
         private System.Windows.Forms.CheckBox chbAll;
         private System.Windows.Forms.DataGridViewCheckBoxColumn chbSelect;
+        private System.Windows.Forms.Button btnBatchDel;
+        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Button btnRemove;
+        private System.Windows.Forms.DateTimePicker txtEditTime;
+        private System.Windows.Forms.DateTimePicker txtCreateTime;
 
     }
 }

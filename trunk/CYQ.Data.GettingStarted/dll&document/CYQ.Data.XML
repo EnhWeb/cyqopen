@@ -536,6 +536,13 @@
             get示例：int id=action.Get&lt;int&gt;(Users.ID);
             </code></example>
         </member>
+        <member name="M:CYQ.Data.MAction.Set(System.Object,System.Object,System.Int32)">
+            <summary>
+            设置值
+            </summary>
+            <param name="state">手工设置状态[0:未更改；1:已赋值,值相同[可插入]；2:已赋值,值不同[可更新]]</param>
+            <returns></returns>
+        </member>
         <member name="M:CYQ.Data.MAction.SetExpression(System.String)">
             <summary>
             更新(Update)操作的自定义表达式设置。
@@ -3690,6 +3697,11 @@
             表结构类
             </summary>
         </member>
+        <member name="M:CYQ.Data.SQL.TableSchema.FixTableSchemaType(System.Data.Common.DbDataReader,System.Data.DataTable)">
+            <summary>
+            DbDataReader的GetSchema拿到的DataType、Size、Scale很不靠谱
+            </summary>
+        </member>
         <member name="M:CYQ.Data.SQL.TableSchema.GetTables(CYQ.Data.DbBase@)">
             <summary>
             获取表（带缓存）
@@ -4125,8 +4137,14 @@
             <summary>
             为行设置值
             </summary>
+        </member>
+        <member name="M:CYQ.Data.Table.MDataRow.Set(System.Object,System.Object,System.Int32)">
+            <summary>
+            为行设置值
+            </summary>
             <param name="key">字段名</param>
             <param name="value">值</param>
+            <param name="state">手工设置状态[0:未更改；1:已赋值,值相同[可插入]；2:已赋值,值不同[可更新]]</param>
         </member>
         <member name="M:CYQ.Data.Table.MDataRow.SetState(System.Int32)">
             <summary>
@@ -4318,6 +4336,9 @@
         <member name="T:CYQ.Data.Table.MDataRowCollection">
             <summary>
             行集合
+            </summary>
+            <summary>
+            实现Winform DataGridView 的添加编辑和删除操作功能。
             </summary>
         </member>
         <member name="M:CYQ.Data.Table.MDataRowCollection.Add(System.Object[])">

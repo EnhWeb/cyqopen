@@ -4,6 +4,7 @@ using System.Text;
 using System.Windows.Forms;
 using CYQ.Data.Table;
 using CYQ.Data.SQL;
+using CYQ.Data.Tool;
 
 namespace CYQ.Data.ProjectTool
 {
@@ -11,6 +12,10 @@ namespace CYQ.Data.ProjectTool
     {
         internal delegate void CreateEndHandle(int count);
         internal static event CreateEndHandle OnCreateEnd;
+        private static string FormatKey(string key)
+        {
+            return key.Replace("-", "_").Replace(" ", "");
+        }
         internal static void Create(object nameObj)
         {
             int count = 0;
@@ -71,7 +76,7 @@ namespace CYQ.Data.ProjectTool
                 tableEnum.Append(config.MutilDatabase ? string.Format("    public enum {0}Enum {{", dbName) : "    public enum TableNames {");
                 foreach (KeyValuePair<string, string> table in tables)
                 {
-                    tableEnum.Append(" " + table.Key + " ,");
+                    tableEnum.Append(" " + FormatKey(table.Key) + " ,");//处理中括号和空格
                 }
                 tableEnum[tableEnum.Length - 1] = '}';//最后一个字符变成换大括号。
 
@@ -96,29 +101,40 @@ namespace CYQ.Data.ProjectTool
         }
         static string GetFiledEnum(string tableName, ProjectConfig config)
         {
-            string tableColumnNames = "    public enum " + tableName + " {";
+            StringBuilder sb = new StringBuilder();
+            sb.Append("    public enum " + FormatKey(tableName) + " {");
             try
             {
-                MDataColumn column = CYQ.Data.Tool.DBTool.GetColumns(tableName, config.Conn);
+                MDataColumn column = DBTool.GetColumns(tableName, config.Conn);
 
                 if (column.Count > 0)
                 {
                     for (int i = 0; i < column.Count; i++)
                     {
-                        tableColumnNames += " " + column[i].ColumnName + " ,";
+                        string cName = FormatKey(column[i].ColumnName);
+                        if (i == 0)
+                        {
+                            sb.Append(" " + cName);
+                        }
+                        else
+                        {
+                            sb.Append(", " + cName);
+                        }
+
                     }
-                    tableColumnNames = tableColumnNames.TrimEnd(',') + "}\r\n";
+                    sb.Append(" }\r\n");
                 }
                 else
                 {
-                    tableColumnNames = tableColumnNames + "}\r\n";
+                    sb.Append("}\r\n");
+                    // tableColumnNames = tableColumnNames + "}\r\n";
                 }
             }
             catch (Exception err)
             {
                 Log.WriteLogToTxt(err);
             }
-            return tableColumnNames;
+            return sb.ToString();
         }
 
         #endregion
@@ -133,15 +149,14 @@ namespace CYQ.Data.ProjectTool
         }
         static void BuildSingTableEntityText(string tableName, string description, ProjectConfig config, string dbName)
         {
-            string fixTableName = tableName;
+            string fixTableName = FormatKey(tableName);
             if (config.MapName) { fixTableName = FixName(tableName); }
-            bool onlyEntity = config.BuildMode.StartsWith("纯");//纯实体。
+            bool onlyEntity = config.BuildMode.StartsWith("纯") || config.BuildMode.Contains("DBFast");//纯实体。
             try
             {
                 StringBuilder csText = new StringBuilder();
                 string nameSpace = string.Format(config.NameSpace, dbName).TrimEnd('.');
 
-                // ((string.IsNullOrEmpty(dbName) || dbName.Contains(":")) ? config.NameSpace : config.NameSpace + "." + dbName);
                 AppendText(csText, "using System;\r\n");
                 AppendText(csText, "namespace {0}", nameSpace);
                 AppendText(csText, "{");
@@ -157,7 +172,7 @@ namespace CYQ.Data.ProjectTool
                 {
                     AppendText(csText, "        public {0}()", fixTableName + config.EntitySuffix);
                     AppendText(csText, "        {");
-                    AppendText(csText, "            base.SetInit(this, \"{0}\", \"{1}\");", fixTableName, config.Name);
+                    AppendText(csText, "            base.SetInit(this, \"{0}\", \"{1}\");", tableName, config.Name);
                     AppendText(csText, "        }");
                 }
 
@@ -172,7 +187,7 @@ namespace CYQ.Data.ProjectTool
                     {
                         foreach (MCellStruct st in column)
                         {
-                            columnName=st.ColumnName;
+                            columnName = st.ColumnName;
                             if (config.MapName) { columnName = FixName(columnName); }
                             t = DataType.GetType(st.SqlType);
                             AppendText(csText, "        private {0} _{1};", FormatType(t.Name, t.IsValueType, config.ValueTypeNullable), columnName);
@@ -265,19 +280,26 @@ namespace CYQ.Data.ProjectTool
                 name = name.ToLower();
                 if (name == "id") { return "ID"; }
                 bool isEndWithID = name.EndsWith("id");
-                string[] items = name.Split('_');
+                string[] items = name.Split(new char[] { '_', '-', ' ' });
                 name = string.Empty;
-                foreach (string item in items)
+                if (items.Length == 1)
                 {
-                    if (!string.IsNullOrEmpty(item))
+                    name = name[0].ToString().ToUpper() + name.Substring(1, name.Length - 1);
+                }
+                else
+                {
+                    foreach (string item in items)
                     {
-                        if (item.Length == 1)
+                        if (!string.IsNullOrEmpty(item))
                         {
-                            name += item.ToUpper();
-                        }
-                        else
-                        {
-                            name += item[0].ToString().ToUpper() + item.Substring(1, item.Length - 1);
+                            if (item.Length == 1)
+                            {
+                                name += item.ToUpper();
+                            }
+                            else
+                            {
+                                name += item[0].ToString().ToUpper() + item.Substring(1, item.Length - 1);
+                            }
                         }
                     }
                 }

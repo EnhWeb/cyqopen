@@ -2,11 +2,35 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using CYQ.Data.Table;
+using System.Threading;
 
 namespace CYQ.Data.ProjectTool
 {
     static class Program
     {
+        private static int _IsEnglish;
+        /// <summary>
+        /// 当前是否英语环境
+        /// </summary>
+        public static bool IsEnglish
+        {
+            get
+            {
+                if (_IsEnglish == -1)
+                {
+                    if (Thread.CurrentThread.CurrentCulture.Name.StartsWith("zh-"))
+                    {
+                        _IsEnglish = 0;
+                    }
+                    else
+                    {
+                        _IsEnglish = 1;
+                    }
+                }
+                return _IsEnglish == 1;
+            }
+        }
+
         internal static string path = string.Empty;
         /// <summary>
         /// 应用程序的主入口点。
@@ -14,15 +38,6 @@ namespace CYQ.Data.ProjectTool
         [STAThread]
         static void Main(string[] para)
         {
-            //MProc p = new MProc("select * from sharedb.v_share_xsxx where xm='严雯嘉'", "Provider=MSDAORA;Data Source=202.115.159.180/xhudb;User ID=mobileportal;Password=mobileportal");
-            //MDataTable dt = p.ExeMDataTable();
-            // MAction action2= new MAction("v_share_xsxx", "Provider=MSDAORA;Data Source=202.115.159.180/xhudb;User ID=mobileportal;Password=mobileportal");
-            //MAction action = new MAction("GuidDemo","server=.;database=demo;uid=sa;pwd=123456");
-            //action.AllowInsertID = true;
-            //action.Set("id", Guid.NewGuid());
-            //action.Set("name", "dfdf");
-            //action.Insert();
-            //return;
 
             if (para.Length > 0)
             {
@@ -47,7 +62,7 @@ namespace CYQ.Data.ProjectTool
         static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
         {
             Exception error = e.Exception as Exception;
-            MessageBox.Show("发生未处理的异常错误，错误信息如下：" + error.Message, "系统错误提示!");
+            MessageBox.Show("UnhandledException ：" + error.Message, "System Tip!");
         }
     }
 }

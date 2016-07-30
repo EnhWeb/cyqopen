@@ -11,10 +11,12 @@ namespace CYQ.Data.ProjectTool
 {
     public partial class OpForm : Form
     {
+
         public OpForm()
         {
             InitializeComponent();
             Form.CheckForIllegalCrossThreadCalls = false;
+            DealWithEnglish();
             BuildCSCode.OnCreateEnd += new BuildCSCode.CreateEndHandle(BuildCSCode_OnCreateEnd);
         }
         bool isIniting = false;
@@ -101,7 +103,7 @@ namespace CYQ.Data.ProjectTool
             }
             if (!result)
             {
-                MessageBox.Show("保存配置失败", "消息提示");
+                MessageBox.Show("Save fail", "Tip");
             }
             return name;
         }
@@ -136,11 +138,11 @@ namespace CYQ.Data.ProjectTool
                 if (Tool.DBTool.TestConn(conn, out errMsg))
                 {
                     SaveConfig();
-                    MessageBox.Show("测试链接成功!", "消息提示");
+                    MessageBox.Show("OK!", "Tip");
                 }
                 else
                 {
-                    MessageBox.Show("测试链接失败：" + errMsg, "消息提示");
+                    MessageBox.Show("Fail：" + errMsg, "Tip");
                 }
             }
             catch
@@ -164,7 +166,7 @@ namespace CYQ.Data.ProjectTool
                     txtConn.Text = "server=.;database=demo;uid=sa;pwd=123456";
                     break;
                 case 1:
-                    txtConn.Text = "Provider=MSDAORA;Data Source=demo;User ID=sa;Password=123456";
+                    txtConn.Text = "Provider=MSDAORA;Data Source=ip/dbname;User ID=sa;Password=123456";
                     break;
                 case 2:
                     txtConn.Text = "host=127.0.0.1;Port=3306;Database=demo;uid=sa;pwd=123456";
@@ -218,8 +220,22 @@ namespace CYQ.Data.ProjectTool
             string conn = txtConn.Text.Trim();
             if (!string.IsNullOrEmpty(conn) && Tool.DBTool.TestConn(conn))
             {
-                if (MessageBox.Show("确认执行该操作？", "消息提示", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                if (MessageBox.Show("To continue？", "Tip", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
+                    string path = txtProjectPath.Text.Trim();
+                    if (!System.IO.Directory.Exists(path))
+                    {
+                        try
+                        {
+                            System.IO.Directory.CreateDirectory(path);
+                        }
+                        catch(Exception err)
+                        {
+                            MessageBox.Show(err.Message, "Tip");
+                            return;
+                        }
+                    }
+                    
                     string name = SaveConfig();
                     btnBuild.Enabled = false;
                     Thread thread = new Thread(new ParameterizedThreadStart(BuildCSCode.Create));
@@ -229,13 +245,13 @@ namespace CYQ.Data.ProjectTool
             }
             else
             {
-                MessageBox.Show("链接测试失败！", "消息提示");
+                MessageBox.Show("Fail！", "Tip");
             }
         }
         void BuildCSCode_OnCreateEnd(int count)
         {
             btnBuild.Enabled = true;
-            MessageBox.Show("执行完成，共计" + count + "个表", "消息提示");
+            MessageBox.Show("OK，Total : " + count + " tables", "Tip");
         }
 
         private void ddlBuildMode_SelectedIndexChanged(object sender, EventArgs e)
@@ -257,7 +273,8 @@ namespace CYQ.Data.ProjectTool
         {
             StartHttp("http://www.cyqdata.com/download/article-detail-426");
         }
-        #region 用默认浏览器打开网址
+
+        #region Open By WebBrowser
         [System.Runtime.InteropServices.DllImport("shell32.dll")]
         static extern IntPtr ShellExecute(
             IntPtr hwnd,
@@ -289,17 +306,58 @@ namespace CYQ.Data.ProjectTool
 
         private void btnOpenProjectFolder_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(txtProjectPath.Text.Trim()))
+            string path=txtProjectPath.Text.Trim();
+            if (!string.IsNullOrEmpty(path))
             {
-                System.Diagnostics.Process.Start(txtProjectPath.Text.Trim());
+                if (!System.IO.Directory.Exists(path))
+                {
+                    MessageBox.Show("Directory not Exists :" + path,"Tip");
+                    return;
+                }
+                System.Diagnostics.Process.Start(path);
             }
         }
 
         private void lnkCopyPath_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Clipboard.SetText(Application.ExecutablePath);
-            MessageBox.Show("软件路径已复制！", "消息提示");
+            MessageBox.Show("Copy Path OK!", "Tip");
         }
+
+        #region Deal with English
+        private void DealWithEnglish()
+        {
+            if (Program.IsEnglish)
+            {
+                this.Text = Text.Replace("配置工具", "Config Tool");
+                lbCodeMode.Text = "CodeMode";
+                lbConn.Text = "Connection";
+                lbDalType.Text = "DB Type";
+                lbDefaultNameSpace.Text = "NameSpace";
+                lbEntityBean.Text = "Entity SubFix";
+                lbName.Text = "Name";
+                lbForDbName.Text = "{0} - For DataBaseName";
+
+                lbSavePath.Text = "Save Path";
+                btnTestConn.Text = "Test Connect";
+                btnBuild.Text = "Build Code";
+
+                chbMutilDatabase.Text = "Mutil DataBase";
+                chbForTwoOnly.Text = "For vs2005";
+                chbMapName.Text = "Map Name";
+                chbValueTypeNullable.Text = "Nullable";
+
+                lnkCopyPath.Text = "CopyPath";
+                lnkGotoUrl.Text = "Source Url";
+                lnkOpenFolder.Text = "OpenFolder";
+
+                ddlBuildMode.Items.Clear();
+                ddlBuildMode.Items.Add("Enum for (MAction/MProc)");
+                ddlBuildMode.Items.Add("Entity for OrmBase");
+                ddlBuildMode.Items.Add("Entity for DBFast");
+            }
+        }
+        #endregion
     }
 
 }

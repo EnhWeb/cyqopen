@@ -281,13 +281,13 @@ namespace CYQ.Data.ProjectTool
                 if (name == "id") { return "ID"; }
                 bool isEndWithID = name.EndsWith("id");
                 string[] items = name.Split(new char[] { '_', '-', ' ' });
-                name = string.Empty;
                 if (items.Length == 1)
                 {
                     name = name[0].ToString().ToUpper() + name.Substring(1, name.Length - 1);
                 }
                 else
                 {
+                    name = string.Empty;
                     foreach (string item in items)
                     {
                         if (!string.IsNullOrEmpty(item))

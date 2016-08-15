@@ -1,0 +1,33 @@
+﻿using CYQ.Data;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Taurus.Controllers.Logic;
+
+namespace Taurus.Controllers
+{
+    public partial class DefaultController:Taurus.Core.Controller
+    {
+        DefaultLogic logic;
+        public DefaultController()
+        {
+            logic = new DefaultLogic(this);
+        }
+        public override void Default()
+        {
+            if (!IsHttpPost)
+            {
+                logic.BindMenu();
+                logic.BindHomePhoto();
+                logic.BindTopArticle();
+            }
+        }
+        public void ArticleDetail()
+        { }
+        public void ArticleList()
+        { }
+        public void PhotoList()
+        { }
+    }
+}

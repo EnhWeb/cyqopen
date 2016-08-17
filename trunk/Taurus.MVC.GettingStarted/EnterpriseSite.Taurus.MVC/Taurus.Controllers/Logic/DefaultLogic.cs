@@ -1,4 +1,5 @@
 ﻿using CYQ.Data.Orm;
+using CYQ.Data.Table;
 using CYQ.Data.Xml;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ namespace Taurus.Controllers.Logic
         {
 
         }
+        #region 页面共用部分
         public void BindMenu()
         {
             using (Menu m = new Menu())
@@ -26,28 +28,18 @@ namespace Taurus.Controllers.Logic
                 m.Select("order by ordernum").Bind(View);
             }
         }
-        public void BindArticleClass()
-        {
-            using (ArticleClass a = new ArticleClass())
-            {
-                a.Select("order by orderNum asc").Bind(View);
-            }
-        }
-        public void BindPhotoClass()
-        {
-            using (PhotoClass a = new PhotoClass())
-            {
-                a.Select().Bind(View);
-            }
-        }
+        #endregion
+
+        #region 首页
         public void BindHomePhoto()
         {
             using (HomePhoto hp = new HomePhoto())
             {
-                hp.Select("TypeName='首页左侧图' order by orderNum").Bind(View,"homephoto1");
-                hp.Select("TypeName='首页右侧图' order by orderNum").Bind(View,"homephoto2");
+                hp.Select("TypeName='首页左侧图' order by orderNum").Bind(View, "homephoto1");
+                hp.Select("TypeName='首页右侧图' order by orderNum").Bind(View, "homephoto2");
             }
         }
+
         public void BindTopArticle()
         {
             ArticleClass ac = DBFast.Find<ArticleClass>("Name='行业资讯' or Name='最新资讯'");
@@ -83,5 +75,64 @@ namespace Taurus.Controllers.Logic
             DateTime.TryParse(Convert.ToString(objDate), out CurrentDate);
             return CurrentDate.ToString("yyyy-MM-dd HH:mm");
         }
+        #endregion
+
+        #region 文章列表
+        public void BindArticleClass()
+        {
+            using (ArticleClass a = new ArticleClass())
+            {
+                a.Select("order by orderNum asc").Bind(View);
+            }
+        }
+        public void BindArticleList()
+        {
+            MDataTable dt;
+            using (Article a = new Article())
+            {
+                dt = a.Select("CateID=" + Query<string>("id") + " order by id desc");
+            }
+            dt.Bind(View);
+            View.Set("labCount", dt.RecordsAffected.ToString());
+        }
+        public void BindArticleDetail()
+        {
+            using (Article a = new Article())
+            {
+                if (a.Fill(Query<string>("id")))
+                {
+                    View.Set("txtTitle", a.Title);
+                    View.Set("txtBody", ArticleBody.Get(a.ID));
+                    View.Set("title",a.Title + " - Taurus.MVC");
+                }
+            }
+        }
+        #endregion
+
+        #region 产品列表
+        public void BindPhotoClass()
+        {
+            using (PhotoClass a = new PhotoClass())
+            {
+                a.Select().Bind(View);
+            }
+        }
+        public void BindPhotoList()
+        {
+            PhotoClass pc = DBFast.Find<PhotoClass>(Query<string>("id"));
+            if (pc != null)
+            {
+                View.Set("title", pc.Name + " - Taurus.MVC");
+            }
+            using (Photo a = new Photo())
+            {
+                a.Select("CateID=" + Query<string>("id")).Bind(View);
+            }
+        }
+        #endregion
+       
+       
+       
+        
     }
 }

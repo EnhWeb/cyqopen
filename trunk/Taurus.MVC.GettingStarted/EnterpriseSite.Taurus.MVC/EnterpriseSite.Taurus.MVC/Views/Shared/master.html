@@ -3,8 +3,9 @@
 <head>
     <title itemref="title">EnterpriseSite.Taurus.MVC</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-     <link href="/style/style.css" rel="stylesheet" type="text/css" />
+    <link href="/style/style.css" rel="stylesheet" type="text/css" />
     <link href="/style/skin.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="/style/lightbox/lightbox.css" type="text/css" media="screen" />
 </head>
 <body>
     <div id="header">
@@ -15,7 +16,7 @@
             </div>
             <div class="f_r log">
                 <div class="clearfix">
-                    <span style="font-size: medium; vertical-align: top;"></span> <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=272657997&site=qq&menu=yes">
+                    <span style="font-size: medium; vertical-align: top;"></span><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=272657997&site=qq&menu=yes">
                         <img
                             src="/style/400.gif" /></a>
                 </div>
@@ -49,13 +50,12 @@
         <div class="aa_b">
             文章分类
         </div>
-        <div class="RelaArticle clearfix"  id="articleclassView">
+        <div class="RelaArticle clearfix" id="articleclassView">
             <li><a onmouseover="setUrl(this,${Count},${ID},${LastArticleID})">${Name}
             </a></li>
         </div>
         <script>
-            function setUrl(obj, count, id,lastArticleID)
-            {
+            function setUrl(obj, count, id, lastArticleID) {
                 obj.href = count > 1 ? "articlelist?id=" + id : "articledetail?id=" + lastArticleID;
             }
         </script>

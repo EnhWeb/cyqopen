@@ -103,7 +103,6 @@
     <Content Include="App_Data\db\body\1.body" />
     <Content Include="App_Data\db\body\2.body" />
     <Content Include="App_Data\db\body\3.body" />
-    <Content Include="App_Data\db\body\4.body" />
     <Content Include="App_Data\db\body\5.body" />
     <Content Include="App_Data\db\body\6.body" />
     <Content Include="style\lightbox\images\Thumbs.db" />

@@ -24,10 +24,22 @@ namespace Taurus.Controllers
             }
         }
         public void ArticleDetail()
-        { }
+        {
+            logic.BindMenu();
+            logic.BindArticleClass();
+            logic.BindArticleDetail();
+        }
         public void ArticleList()
-        { }
+        {
+            logic.BindMenu();
+            logic.BindArticleClass();
+            logic.BindArticleList();
+        }
         public void PhotoList()
-        { }
+        {
+            logic.BindMenu();
+            logic.BindPhotoClass();
+            logic.BindPhotoList();
+        }
     }
 }

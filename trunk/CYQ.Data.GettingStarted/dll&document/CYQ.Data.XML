@@ -66,6 +66,11 @@
             获取当前Dll的版本号
             </summary>
         </member>
+        <member name="P:CYQ.Data.AppConfig.RunPath">
+            <summary>
+            框架的运行路径（Bin目录）
+            </summary>
+        </member>
         <member name="T:CYQ.Data.AppConfig.XHtml">
             <summary>
             XHtml 相关的配置
@@ -143,6 +148,7 @@
         <member name="P:CYQ.Data.AppConfig.DB.DeleteField">
             <summary>
             删除字段名称（若表存在此设置的字段名称时，MActon的删除操作将变更变为更新操作）
+            默认：IsDeleted
             </summary>
         </member>
         <member name="P:CYQ.Data.AppConfig.DB.EditTimeFields">
@@ -183,6 +189,17 @@
         <member name="P:CYQ.Data.AppConfig.Cache.IsAutoCache">
             <summary>
             是否智能缓存数据（默认开启）
+            </summary>
+        </member>
+        <member name="P:CYQ.Data.AppConfig.Cache.NoCacheTables">
+            <summary>
+            AutoCache开启时，可以设置不缓存的Table，多个用逗号分隔
+            </summary>
+        </member>
+        <member name="P:CYQ.Data.AppConfig.Cache.IngoreCacheColumns">
+            <summary>
+            AutoCache开启时，可以设置不受更新影响的列名，用Json格式。
+            {talbeName1:'column1,column2',talbeName2:'column1,column2'}
             </summary>
         </member>
         <member name="T:CYQ.Data.AppConfig.Log">
@@ -612,20 +629,17 @@
             事务回滚
             </summary>
         </member>
-        <member name="M:CYQ.Data.MAction.Dispose">
+        <member name="M:CYQ.Data.MAction.Dispose(System.Boolean)">
             <summary>
             释放资源
             </summary>
         </member>
-        <member name="M:CYQ.Data.MAction.SetAopOff">
+        <member name="M:CYQ.Data.MAction.SetAopState(CYQ.Data.Aop.AopOp)">
             <summary>
-            取消Aop，在Aop独立模块使用MAction时必须调用
+            设置Aop状态
             </summary>
-        </member>
-        <member name="M:CYQ.Data.MAction.SetAopOn">
-            <summary>
-            恢复默认配置的Aop。
-            </summary>
+            <param name="op">Aop状态选项</param>
+            <returns></returns>
         </member>
         <member name="M:CYQ.Data.MAction.SetAopPara(System.Object)">
             <summary>
@@ -761,7 +775,7 @@
         </member>
         <member name="M:CYQ.Data.MProc.ExeMDataTableList">
             <summary>
-            执行的语句有多个结果集返回（库此方法不支持文本数据和AOP）
+            执行的语句有多个结果集返回
             </summary>
             <returns></returns>
         </member>
@@ -801,20 +815,23 @@
             <param name="paraType">参数类型</param>
             <param name="value">参数值</param>
         </member>
+        <member name="M:CYQ.Data.MProc.SetCustom(System.Object,CYQ.Data.ParaType,System.Object,System.String)">
+            <summary>
+            设置特殊自定义参数
+            </summary>
+            <param name="typeName">MSSQL的用户定义表类型的名称</param>
+        </member>
         <member name="M:CYQ.Data.MProc.Clear">
             <summary>
             清除存储过程参数
             </summary>
         </member>
-        <member name="M:CYQ.Data.MProc.SetAopOff">
+        <member name="M:CYQ.Data.MProc.SetAopState(CYQ.Data.Aop.AopOp)">
             <summary>
-            取消AOP
+            设置Aop状态
             </summary>
-        </member>
-        <member name="M:CYQ.Data.MProc.SetAopOn">
-            <summary>
-            恢复默认配置的Aop。
-            </summary>
+            <param name="op">Aop状态选项</param>
+            <returns></returns>
         </member>
         <member name="M:CYQ.Data.MProc.SetAopPara(System.Object)">
             <summary>
@@ -1205,6 +1222,18 @@
             获取系统内部缓存Key
             </summary>
         </member>
+        <member name="M:CYQ.Data.Cache.CacheManage.PreLoadDBSchemaToCache">
+            <summary>
+            通过该方法可以预先加载整个数据库的表结构缓存
+            </summary>
+        </member>
+        <member name="M:CYQ.Data.Cache.CacheManage.PreLoadDBSchemaToCache(System.String,System.Boolean)">
+            <summary>
+            通过该方法可以预先加载整个数据库的表结构缓存
+            </summary>
+            <param name="conn">指定数据链接</param>
+            <param name="isUseThread">是否开启线程</param>
+        </member>
         <member name="P:CYQ.Data.Cache.CacheManage.Instance">
             <summary>
             返回唯一实例(根据是否配置AppConfig.Cache.MemCacheServers的服务器决定启用本地缓存或分布式缓存）
@@ -1344,6 +1373,31 @@
         <member name="F:CYQ.Data.Aop.AopResult.Return">
             <summary>
             本结果将直接跳出原有函数的执行
+            </summary>
+        </member>
+        <member name="T:CYQ.Data.Aop.AopOp">
+            <summary>
+            Aop开关选项
+            </summary>
+        </member>
+        <member name="F:CYQ.Data.Aop.AopOp.OpenAll">
+            <summary>
+            正常打开
+            </summary>
+        </member>
+        <member name="F:CYQ.Data.Aop.AopOp.OnlyInner">
+            <summary>
+            仅打开内部Aop（即自动缓存，关闭外部Aop）
+            </summary>
+        </member>
+        <member name="F:CYQ.Data.Aop.AopOp.OnlyOuter">
+            <summary>
+            仅打开外部Aop（关闭自动缓存）
+            </summary>
+        </member>
+        <member name="F:CYQ.Data.Aop.AopOp.CloseAll">
+            <summary>
+            内外都关（自动缓存和外部Aop）
             </summary>
         </member>
         <member name="T:CYQ.Data.Aop.IAop">
@@ -1997,6 +2051,11 @@
              Oracle NCLOB类型
             </summary>
         </member>
+        <member name="F:CYQ.Data.ParaType.Structured">
+            <summary>
+             MSSQL 用户定义表类型
+            </summary>
+        </member>
         <member name="T:CYQ.Data.DbResetResult">
             <summary>
             重置数据库的结果
@@ -2118,12 +2177,12 @@
         </member>
         <member name="F:CYQ.Data.InsertOp.ID">
             <summary>
-            使用此项：插入数据后会返回ID。
+            使用此项：插入数据后会返回ID[默认选项]。
             </summary>
         </member>
         <member name="F:CYQ.Data.InsertOp.Fill">
             <summary>
-            使用此项：插入数据后,会根据返回ID进行查询后填充数据行,[默认选项]
+            使用此项：插入数据后,会根据返回ID进行查询后填充数据行。
             </summary>
         </member>
         <member name="T:CYQ.Data.Orm.DBFast">
@@ -2206,6 +2265,12 @@
             <summary>
             构造函数
             </summary>
+        </member>
+        <member name="M:CYQ.Data.Orm.OrmBase.SetAopState(CYQ.Data.Aop.AopOp)">
+            <summary>
+            设置Aop状态
+            </summary>
+            <param name="op"></param>
         </member>
         <member name="M:CYQ.Data.Orm.OrmBase.SetInit(System.Object)">
             <summary>
@@ -2454,6 +2519,12 @@
             构造函数
             </summary>
         </member>
+        <member name="M:CYQ.Data.Orm.SimpleOrmBase.SetAopState(CYQ.Data.Aop.AopOp)">
+            <summary>
+            设置Aop状态
+            </summary>
+            <param name="op"></param>
+        </member>
         <member name="M:CYQ.Data.Orm.SimpleOrmBase.SetInit(System.Object)">
             <summary>
             初始化状态[继承此基类的实体在构造函数中需调用此方法]
@@ -2474,6 +2545,11 @@
             <param name="entityInstance">实体对象,一般写:this</param>
             <param name="tableName">表名,如:Users</param>
             <param name="conn">数据链接,单数据库时可写Null,或写默认链接配置项:"Conn",或直接数据库链接字符串</param>
+        </member>
+        <member name="M:CYQ.Data.Orm.SimpleOrmBase.SetDelayInit(System.Object,System.String,System.String,CYQ.Data.Aop.AopOp)">
+            <summary>
+            将原有的初始化改造成延时加载。
+            </summary>
         </member>
         <member name="M:CYQ.Data.Orm.SimpleOrmBase.Insert">
             <summary>
@@ -2803,7 +2879,7 @@
             将数据表绑定到列表控件
             </summary>
             <param name="control">列表控件[包括Repeater/DataList/GridView/DataGrid等]</param>
-            <param name="paraID">当Control为XHtmlAction对象时，需要指定绑定的节点ID</param>
+            <param name="nodeID">当Control为XHtmlAction对象时，需要指定绑定的节点ID</param>
         </member>
         <member name="M:CYQ.Data.Table.MDataTable.Merge(CYQ.Data.Table.MDataTable)">
             <summary>
@@ -3062,6 +3138,11 @@
         <member name="P:CYQ.Data.Table.MDataTable.TableName">
             <summary>
             表名
+            </summary>
+        </member>
+        <member name="P:CYQ.Data.Table.MDataTable.Description">
+            <summary>
+            表名描述
             </summary>
         </member>
         <member name="P:CYQ.Data.Table.MDataTable.Columns">
@@ -3656,6 +3737,11 @@
             区分Oracle11和Oracle12的Dll名称。
             </summary>
         </member>
+        <member name="F:CYQ.Data.OracleDal.isUseOdpNet">
+            <summary>
+            值-1未初始化；0使用OracleClient；1使用DataAccess；2使用ManagedDataAccess
+            </summary>
+        </member>
         <member name="P:CYQ.Data.OracleDal.IsUseOdpNet">
             <summary>
             是否使用Oracle的ODP.NET组件。
@@ -3744,6 +3830,16 @@
         <member name="T:CYQ.Data.SQL.TableSchema">
             <summary>
             表结构类
+            </summary>
+        </member>
+        <member name="F:CYQ.Data.SQL.TableSchema.tableCache">
+            <summary>
+            全局表名缓存（只缓存表名和表名的描述）
+            </summary>
+        </member>
+        <member name="F:CYQ.Data.SQL.TableSchema.columnCache">
+            <summary>
+            全局缓存实体类的表结构（仅会对Type读取的结构）
             </summary>
         </member>
         <member name="M:CYQ.Data.SQL.TableSchema.FixTableSchemaType(System.Data.Common.DbDataReader,System.Data.DataTable)">
@@ -4120,6 +4216,11 @@
             架构所引用的表
             </summary>
         </member>
+        <member name="P:CYQ.Data.Table.MDataColumn.Description">
+            <summary>
+            表名描述
+            </summary>
+        </member>
         <member name="P:CYQ.Data.Table.MDataColumn.JointPrimary">
             <summary>
             联合主键
@@ -4293,7 +4394,7 @@
             </summary>
             <param name="row">要加载数据的行</param>
             <param name="rowOp">行选项[从其它行加载的条件]</param>
-            <param name="isAllowAppendColumn">如果row带有新列，是否加列[默认值为：true]</param>
+            <param name="isAllowAppendColumn">如果row带有新列，是否加列</param>
             <param name="isWithValueState">是否同时加载值的状态[默认值为：true]</param>
         </member>
         <member name="M:CYQ.Data.Table.MDataRow.LoadFrom(System.Object[])">
@@ -4992,17 +5093,17 @@
         </member>
         <member name="F:CYQ.Data.Tool.JsonSplit.CharState.state">
             <summary>
-            【0 取名称中】；【1 取值中】
+            【-1 未初始化】【0 取名称中】；【1 取值中】
             </summary>
         </member>
         <member name="F:CYQ.Data.Tool.JsonSplit.CharState.keyStart">
             <summary>
-            【-1 未初始化】【0 未开始】【1 无引号开始】【2 单引号开始】【3 双引号开始】
+            【-2 已结束】【-1 未初始化】【0 未开始】【1 无引号开始】【2 单引号开始】【3 双引号开始】
             </summary>
         </member>
         <member name="F:CYQ.Data.Tool.JsonSplit.CharState.valueStart">
             <summary>
-            【-1 未初始化】【0 未开始】【1 无引号开始】【2 单引号开始】【3 双引号开始】
+            【-2 已结束】【-1 未初始化】【0 未开始】【1 无引号开始】【2 单引号开始】【3 双引号开始】
             </summary>
         </member>
         <member name="T:CYQ.Data.Tool.MDictionary`2">
@@ -5089,7 +5190,6 @@
             <summary>
             添加全局线程[通常该线程是个死循环，定时处理事情]
             </summary>
-            <param name="start"></param>
         </member>
         <member name="T:CYQ.Data.UI.MActionUI">
             <summary>

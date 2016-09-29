@@ -561,6 +561,11 @@
             </summary>
             <param name="updateExpression">例如a字段值自加1："a=a+1"</param>
         </member>
+        <member name="M:CYQ.Data.MAction.SetPara(System.Object,System.Object)">
+            <summary>
+            参数化传参[当Where条件为参数化(如：name=@name)语句时使用]
+            </summary>
+        </member>
         <member name="M:CYQ.Data.MAction.SetPara(System.Object,System.Object,System.Data.DbType)">
             <summary>
             参数化传参[当Where条件为参数化(如：name=@name)语句时使用]

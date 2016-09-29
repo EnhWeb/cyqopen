@@ -3560,6 +3560,21 @@
             </example>
             </summary>
         </member>
+        <member name="F:CYQ.Data.SQL.SqlValue.Contact">
+            <summary>
+            数据库链接符号 + Oracle下为：||
+            </summary>
+        </member>
+        <member name="F:CYQ.Data.SQL.SqlValue.Left">
+            <summary>
+            数据库Left函数
+            </summary>
+        </member>
+        <member name="F:CYQ.Data.SQL.SqlValue.Right">
+            <summary>
+            数据库Right函数
+            </summary>
+        </member>
         <member name="T:CYQ.Data.Extension.IField">
             <summary>
             实现此接口，来扩展自定义IField语法
@@ -3737,7 +3752,7 @@
             区分Oracle11和Oracle12的Dll名称。
             </summary>
         </member>
-        <member name="F:CYQ.Data.OracleDal.isUseOdpNet">
+        <member name="F:CYQ.Data.OracleDal.clientType">
             <summary>
             值-1未初始化；0使用OracleClient；1使用DataAccess；2使用ManagedDataAccess
             </summary>

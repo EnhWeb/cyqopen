@@ -32,7 +32,7 @@ namespace IUIValue_Demo
         {
             get
             {
-                return txtValue.Name;
+                return this.Name;
             }
         }
 

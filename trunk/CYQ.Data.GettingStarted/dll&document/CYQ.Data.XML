@@ -313,6 +313,11 @@
             MSSQL插入标识ID后关闭此选项[事务开启时有效]
             </summary>;
         </member>
+        <member name="F:CYQ.Data.MAction.IsIgnoreDeleteField">
+            <summary>
+            当DeleteField被设置后（删除转更新操作），如果仍想删除操作（可将些属性置为true）
+            </summary>
+        </member>
         <member name="M:CYQ.Data.MAction.#ctor(System.Object)">
             <summary>
             构造函数
@@ -3467,12 +3472,12 @@
         </member>
         <member name="F:CYQ.Data.SQL.SqlValue.Desc">
             <summary>
-            对于Bit类型[是/否] 类型的排序：[#DESC]
+            对于Bit类型[是/否] 类型的排序：[#DESC] (Access特殊)
             </summary>
         </member>
         <member name="F:CYQ.Data.SQL.SqlValue.Asc">
             <summary>
-            对于Bit类型[是/否] 类型的排序：[#ASC]
+            对于Bit类型[是/否] 类型的排序：[#ASC] (Access特殊)
             </summary>
         </member>
         <member name="F:CYQ.Data.SQL.SqlValue.True">
@@ -3490,12 +3495,12 @@
             数据库函数 Len 取长度：[#LEN](字段)
             </summary>
         </member>
-        <member name="F:CYQ.Data.SQL.SqlValue.GUID">
+        <member name="F:CYQ.Data.SQL.SqlValue.Guid">
             <summary>
             数据库函数 GUID 获取：[#GETDATE]
             </summary>
         </member>
-        <member name="F:CYQ.Data.SQL.SqlValue.ISNULL">
+        <member name="F:CYQ.Data.SQL.SqlValue.IsNull">
             <summary>
             数据库函数 ISNULL 判断：[#ISNULL](Exr1,Exr2)
             </summary>

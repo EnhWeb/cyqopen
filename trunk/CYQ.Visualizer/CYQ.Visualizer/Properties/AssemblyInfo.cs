@@ -5,10 +5,10 @@ using System.Runtime.InteropServices;
 // 有关程序集的常规信息通过以下
 // 特性集控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("CYQ.Visualizer for .NET Framework 2.0")]
+[assembly: AssemblyTitle("CYQ.Visualizer for .NET Framework")]
 [assembly: AssemblyDescription("论坛：http://www.cyqdata.com/cyqdata")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("秋式软件 （2015-06-03）")]
+[assembly: AssemblyCompany("秋式软件 （2016-10-19）")]
 [assembly: AssemblyProduct("CYQ.Visualizer for CYQ.Data 数据层(ORM)框架 V5 版本")]
 [assembly: AssemblyCopyright("版权所有 (C) 秋式软件 2010-2020")]
 [assembly: AssemblyTrademark("CYQ.Visualizer")]
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // 可以指定所有这些值，也可以使用“生成号”和“修订号”的默认值，
 // 方法是按如下所示使用“*”:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.1")]
-[assembly: AssemblyFileVersion("1.0.0.1")]
+[assembly: AssemblyVersion("2.0.0.0")]
+[assembly: AssemblyFileVersion("2.0.0.0")]

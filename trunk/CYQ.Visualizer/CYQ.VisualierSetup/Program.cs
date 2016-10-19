@@ -30,7 +30,9 @@ namespace CYQ.VisualierSetup
                 Dictionary<string, string> dic = new Dictionary<string, string>();
                 dic.Add("2005", "\\Microsoft Visual Studio 8");
                 dic.Add("2008", "\\Microsoft Visual Studio 9");
+                dic.Add("2010", "\\Microsoft Visual Studio 10.0");
                 dic.Add("2012", "\\Microsoft Visual Studio 11.0");
+                dic.Add("2013", "\\Microsoft Visual Studio 12.0");
                 dic.Add("2015", "\\Microsoft Visual Studio 14");
                 //读取VS安装路径
                 string vPath = "\\Common7\\Packages\\Debugger\\Visualizers";

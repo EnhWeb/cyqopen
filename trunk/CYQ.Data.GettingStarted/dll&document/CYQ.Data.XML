@@ -508,7 +508,7 @@
             {
                 if(action.Fill("name='路过秋天'")) //或者action.Fill(888) 或者 action.Fill(id=888)
                 {
-                    action.SetTo(labUserName);
+                    action.UI.SetTo(labUserName);
                 }
             }
             </code></example>
@@ -1239,7 +1239,7 @@
         </member>
         <member name="M:CYQ.Data.Cache.CacheManage.PreLoadDBSchemaToCache(System.String,System.Boolean)">
             <summary>
-            通过该方法可以预先加载整个数据库的表结构缓存
+            通过该方法可以预先加载整个数据库的表结构缓存(异常会抛，外层Try Catch)
             </summary>
             <param name="conn">指定数据链接</param>
             <param name="isUseThread">是否开启线程</param>
@@ -2046,6 +2046,11 @@
             输出类型
             </summary>
         </member>
+        <member name="F:CYQ.Data.ParaType.InputOutput">
+            <summary>
+            输入输出类型
+            </summary>
+        </member>
         <member name="F:CYQ.Data.ParaType.ReturnValue">
             <summary>
             返回值类型
@@ -2823,6 +2828,11 @@
             使用本查询，得到原数据的引用。
             </summary>
         </member>
+        <member name="M:CYQ.Data.Table.MDataTable.GetIndex(System.Object)">
+            <summary>
+            统计满足条件的行所在的索引
+            </summary>
+        </member>
         <member name="M:CYQ.Data.Table.MDataTable.GetCount(System.Object)">
             <summary>
             统计满足条件的行数
@@ -2866,12 +2876,18 @@
             输出Json
             </summary>
         </member>
-        <member name="M:CYQ.Data.Table.MDataTable.ToJson(System.Boolean,System.Boolean,CYQ.Data.Table.RowOp,System.Boolean)">
-            <param name="addHead">输出头部信息[带count、Success、ErrorMsg]</param>
-            <param name="addSchema">首行输出表架构信息,反接收时可还原架构</param>
-            <param name="rowOp">过滤选项</param>
+        <member name="M:CYQ.Data.Table.MDataTable.ToJson(System.Boolean,System.Boolean)">
+            <param name="addHead">输出头部信息[带count、Success、ErrorMsg](默认true)</param>
+            <param name="addSchema">首行输出表架构信息,反接收时可还原架构(默认false)</param>
+        </member>
+        <member name="M:CYQ.Data.Table.MDataTable.ToJson(System.Boolean,System.Boolean,System.Boolean)">
             <param name="isConvertNameToLower">是否将名称转为小写</param>
-            <returns></returns>
+        </member>
+        <member name="M:CYQ.Data.Table.MDataTable.ToJson(System.Boolean,System.Boolean,CYQ.Data.Table.RowOp)">
+            <param name="rowOp">过滤选项</param>
+        </member>
+        <member name="M:CYQ.Data.Table.MDataTable.ToJson(System.Boolean,System.Boolean,CYQ.Data.Table.RowOp,System.Boolean,CYQ.Data.Tool.EscapeOp)">
+            <param name="op">符号转义选项</param>
         </member>
         <member name="M:CYQ.Data.Table.MDataTable.WriteJson(System.Boolean,System.Boolean,System.String)">
             <summary>
@@ -3222,6 +3238,11 @@
             <summary>
             批量自动插入或更新（检测主键数据若存在，则更新；不存在，则插入）
             该执行不会开启事务。
+            </summary>
+        </member>
+        <member name="F:CYQ.Data.Table.AcceptOp.Truncate">
+            <summary>
+            清空表（只有和Insert或InsertWithID组合使用时才有效）
             </summary>
         </member>
         <member name="T:CYQ.Data.Table.BreakOp">
@@ -3933,6 +3954,15 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:CYQ.Data.SQL.SqlCreate.GetColumnName(CYQ.Data.Table.MDataColumn,System.Boolean,CYQ.Data.DalType)">
+            <summary>
+            获得批量导入的列名。
+            </summary>
+            <param name="mdc"></param>
+            <param name="keepID"></param>
+            <param name="dalType"></param>
+            <returns></returns>
+        </member>
         <member name="P:CYQ.Data.SQL.SqlCreate.AutoID">
             <summary>
             oracle序列名称
@@ -4565,6 +4595,11 @@
             检测GUID，若空，补值。
             </summary>
         </member>
+        <member name="P:CYQ.Data.Table.MDataTableBatchAction.IsTruncate">
+            <summary>
+            Insert前是否先清表
+            </summary>
+        </member>
         <member name="T:CYQ.Data.Table.Op">
             <summary>
             操作符号
@@ -4699,6 +4734,16 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:CYQ.Data.Tool.EscapeOp">
+            <summary>
+            JsonHelper 的符号转义选项
+            </summary>
+        </member>
+        <member name="F:CYQ.Data.Tool.EscapeOp.Default">
+            <summary>
+            Web 默认转义，Win不转义
+            </summary>
+        </member>
         <member name="T:CYQ.Data.Tool.JsonHelper">
             <summary>
             json 帮助类
@@ -4709,6 +4754,11 @@
         </member>
         <member name="M:CYQ.Data.Tool.JsonHelper.#ctor(System.Boolean,System.Boolean)">
             <param name="addSchema">是否首行带表结构[MDataTable.LoadFromJson可以还原表的数据类型]</param>
+        </member>
+        <member name="F:CYQ.Data.Tool.JsonHelper.Escape">
+            <summary>
+            转义符号
+            </summary>
         </member>
         <member name="F:CYQ.Data.Tool.JsonHelper.IsConvertNameToLower">
             <summary>
@@ -5106,6 +5156,13 @@
             设置字符状态(返回true则为关键词，返回false则当为普通字符处理）
             </summary>
         </member>
+        <member name="M:CYQ.Data.Tool.JsonSplit.GetCharCount(System.String,System.Char)">
+            <summary>
+            获取字符在字符串出现的次数
+            </summary>
+            <param name="c"></param>
+            <returns></returns>
+        </member>
         <member name="T:CYQ.Data.Tool.JsonSplit.CharState">
             <summary>
             字符状态
@@ -5137,6 +5194,31 @@
             </summary>
             <typeparam name="K">key</typeparam>
             <typeparam name="V">value</typeparam>
+        </member>
+        <member name="M:CYQ.Data.Tool.MDictionary`2.Get(`0)">
+            <summary>
+            当Key为int时，通过此方法取值
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CYQ.Data.Tool.MDictionary`2.Set(`0,`1)">
+            <summary>
+            当Key为int时，通过此方法取值
+            </summary>
+        </member>
+        <member name="P:CYQ.Data.Tool.MDictionary`2.Item(`0)">
+            <summary>
+            索引取值
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="P:CYQ.Data.Tool.MDictionary`2.Item(System.Int32)">
+            <summary>
+            通过index索引取值
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:CYQ.Data.Tool.StaticTool">
             <summary>
@@ -5229,7 +5311,7 @@
             <param name="otherParentControls">可选（其它的父控件）</param>
             <example><code>
             action.SetAutoPrefix("txt","ddl");//设置控件的前缀
-            action.SetToAll(this);
+            action.UI.SetToAll(this);
             </code></example>
         </member>
         <member name="M:CYQ.Data.UI.MActionUI.SetTo(System.Object)">
@@ -5238,7 +5320,7 @@
             </summary>
             <param name="control">控件对象</param>
             <example><code>
-            示例：action.SetTo(txtUserName);//同于：txtUserName.Text=action.Get&lt;string&gt;(Users.UserName);
+            示例：action.UI.SetTo(txtUserName);//同于：txtUserName.Text=action.Get&lt;string&gt;(Users.UserName);
             </code></example>
         </member>
         <member name="M:CYQ.Data.UI.MActionUI.SetTo(System.Object,System.String)">
@@ -5253,7 +5335,7 @@
             </summary>
             <param name="control">控件对象</param>
             <example><code>
-            示例：action.GetFrom(txtUserName);//获取TextBox默认Text属性的值
+            示例：action.UI.GetFrom(txtUserName);//获取TextBox默认Text属性的值
             </code></example>
         </member>
         <member name="M:CYQ.Data.UI.MActionUI.GetFrom(System.Object,System.String)">

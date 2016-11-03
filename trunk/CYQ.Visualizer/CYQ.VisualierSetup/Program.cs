@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
 
 namespace CYQ.VisualierSetup
@@ -10,6 +9,7 @@ namespace CYQ.VisualierSetup
     {
         static void Main(string[] args)
         {
+            ClearCYQData();
             try
             {
                 string runPath = AppDomain.CurrentDomain.BaseDirectory;
@@ -37,6 +37,9 @@ namespace CYQ.VisualierSetup
                 //读取VS安装路径
                 string vPath = "\\Common7\\Packages\\Debugger\\Visualizers";
                 string mPath = "\\VC#\\Snippets\\2052\\Visual C#";
+
+                //需要引入Debug模式生成的DLL，才能避免调试时弹出的提示。
+                string cyqdataDll = runPath + "\\CYQ.Data.dll";
                 foreach (string item in cd)
                 {
                     foreach (KeyValuePair<string, string> kv in dic)
@@ -45,9 +48,11 @@ namespace CYQ.VisualierSetup
                         if (Directory.Exists(vFolder))
                         {
                             string dll = runPath + kv.Key + "\\CYQ.Visualizer.dll";
+
                             if (File.Exists(dll))
                             {
                                 File.Copy(dll, vFolder + "\\CYQ.Visualizer.dll", true);
+                                File.Copy(cyqdataDll, vFolder + "\\CYQ.Data.dll", true);
                                 Console.WriteLine("To：" + vFolder + "\\CYQ.Visualizer.dll");
                             }
                         }
@@ -70,6 +75,36 @@ namespace CYQ.VisualierSetup
                 Console.WriteLine(err.Message);
             }
             Console.Read();
+        }
+        static void ClearCYQData()
+        {
+            try
+            {
+                string runPath = AppDomain.CurrentDomain.BaseDirectory;
+                File.Delete(runPath + "\\CYQ.Data.pdb");
+                File.Delete(runPath + "\\CYQ.Data.xml");
+                string[] folders = Directory.GetDirectories(runPath);
+                if (folders != null)
+                {
+                    foreach (string item in folders)
+                    {
+                        string[] files = Directory.GetFiles(item, "CYQ.Data.*");
+                        if (files != null)
+                        {
+                            foreach (string file in files)
+                            {
+                                File.Delete(file);
+                            }
+
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+
+            }
         }
     }
 }

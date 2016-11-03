@@ -8,46 +8,37 @@ using CYQ.Data.Table;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Data;
+using CYQ.Visualizer;
 
-[assembly: System.Diagnostics.DebuggerVisualizer(
-typeof(CYQ.Visualizer.DataRowVisualizer),
-typeof(VisualizerObjectSource),
-Target = typeof(System.Data.DataRow),
-Description = "DataRow Visualizer")]
-
+[assembly: System.Diagnostics.DebuggerVisualizer(typeof(MDataRowVisualizer),typeof(DataRowVisualizerObjectSource),Target = typeof(DataRow),Description = "DataRow Visualizer")]
+[assembly: System.Diagnostics.DebuggerVisualizer(typeof(MDataRowCollectionVisualizer), typeof(DataRowCollectionVisualizerObjectSource), Target = typeof(DataRowCollection), Description = "DataRowCollection Visualizer")]
+[assembly: System.Diagnostics.DebuggerVisualizer(typeof(MDataColumnVisualizer), typeof(DataColumnCollectionVisualizerObjectSource), Target = typeof(DataColumnCollection), Description = "DataColumnCollection Visualizer")]
 
 namespace CYQ.Visualizer
 {
-    /// <summary>
-    /// DataRow未标记序列化，所以不支持
-    /// </summary>
-    public class DataRowVisualizer : DialogDebuggerVisualizer
+    public class DataRowVisualizerObjectSource : VisualizerObjectSource
     {
-        protected override void Show(IDialogVisualizerService windowService, IVisualizerObjectProvider objectProvider)
+        public override void GetData(object target, System.IO.Stream outgoingData)
         {
-            MDataRow row = objectProvider.GetObject() as DataRow;
-            string title = string.Format("TableName : {0}    Columns： {1}", row.TableName, row.Columns.Count);
-            Form form = FormCreate.CreateForm(title);
-            DataGridView dg = FormCreate.CreateGrid(form);
-            try
-            {
-                MDataTable dt = row.ToTable();
-                MCellStruct ms = new MCellStruct("[No.]", System.Data.SqlDbType.Int);
-                dt.Columns.Insert(0, ms);
-                for (int i = 0; i < dt.Rows.Count; i++)
-                {
-                    dt.Rows[i].Set(0, i + 1);
-                }
-                dt.Bind(dg);
-
-            }
-            catch (Exception err)
-            {
-                MessageBox.Show(err.Message);
-            }
-
-            windowService.ShowDialog(form);
+            MDataRow row = target as DataRow;
+            base.GetData(row, outgoingData);
         }
     }
-   
+    public class DataColumnCollectionVisualizerObjectSource : VisualizerObjectSource
+    {
+        public override void GetData(object target, System.IO.Stream outgoingData)
+        {
+            MDataColumn mdc = target as DataColumnCollection;
+            base.GetData(mdc, outgoingData);
+        }
+    }
+    public class DataRowCollectionVisualizerObjectSource : VisualizerObjectSource
+    {
+        public override void GetData(object target, System.IO.Stream outgoingData)
+        {
+            MDataRowCollection mrc = target as DataRowCollection;
+            base.GetData(mrc, outgoingData);
+        }
+    }
+    
 }

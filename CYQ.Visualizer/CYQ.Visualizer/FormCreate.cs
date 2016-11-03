@@ -27,8 +27,8 @@ namespace CYQ.Visualizer
             dg.ReadOnly = true;
             dg.Dock = DockStyle.Fill;
             dg.ScrollBars = ScrollBars.Both;
-            dg.AutoSize = true;
-            dg.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            //dg.AutoSize = true;
+           // dg.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.ColumnHeader;
             return dg;
         }
         public static void BindTable(IDialogVisualizerService windowService, MDataTable dt, string title)

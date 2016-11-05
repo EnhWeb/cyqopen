@@ -8,11 +8,12 @@ using CYQ.Data.Table;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Data;
+using CYQ.Visualizer;
 
 
 [assembly: System.Diagnostics.DebuggerVisualizer(
 typeof(CYQ.Visualizer.MDataTableVisualizer),
-typeof(VisualizerObjectSource),
+typeof(EnumerableVisualizerObjectSource),
 Target = typeof(CYQ.Data.Table.MDataTable),
 Description = "MDataTable Visualizer")]
 

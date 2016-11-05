@@ -26,7 +26,7 @@ namespace CYQ.Visualizer
                 {
                     MessageBox.Show(err.Message);
                 }
-                
+
             }
         }
     }
@@ -34,16 +34,41 @@ namespace CYQ.Visualizer
     {
         public override void GetData(object target, System.IO.Stream outgoingData)
         {
-            if (target is NameObjectCollectionBase)
+            MDataTable dt = null;
+            if (target is MDataTable)
             {
-                target = MDataTable.CreateFrom(target as NameObjectCollectionBase);
+                dt = target as MDataTable;
             }
-            else
+            else if (target is NameObjectCollectionBase)
             {
-                target = MDataTable.CreateFrom(target as IEnumerable);
+                dt = MDataTable.CreateFrom(target as NameObjectCollectionBase);
             }
-            base.GetData(target, outgoingData);
-
+            else if (target is IEnumerable)
+            {
+                dt = MDataTable.CreateFrom(target as IEnumerable);
+            }
+            base.GetData(Format(dt), outgoingData);
+        }
+        private MDataTable Format(MDataTable dt)
+        {
+            if (dt != null && dt.Columns.Count > 0)
+            {
+                for (int i = 0; i < dt.Columns.Count; i++)
+                {
+                    if (dt.Columns[i].SqlType == System.Data.SqlDbType.Variant)
+                    {
+                        for (int k = 0; k < dt.Rows.Count; k++)
+                        {
+                            if (!dt.Rows[k][i].IsNull)
+                            {
+                                dt.Rows[k][i].Value = dt.Rows[k][i].ToString();
+                            }
+                        }
+                        dt.Columns[i].SqlType = System.Data.SqlDbType.NVarChar;//避开未序列化的对象。
+                    }
+                }
+            }
+            return dt;
         }
     }
 }

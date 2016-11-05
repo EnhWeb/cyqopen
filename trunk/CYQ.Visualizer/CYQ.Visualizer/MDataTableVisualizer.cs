@@ -50,9 +50,12 @@ namespace CYQ.Visualizer
         protected override void Show(IDialogVisualizerService windowService, IVisualizerObjectProvider objectProvider)
         {
             MDataRow row = objectProvider.GetObject() as MDataRow;
-            MDataTable dt = row.ToTable();
-            string title = string.Format("TableName : {0}    Columns£º {1}", row.TableName, row.Columns.Count);
-            FormCreate.BindTable(windowService, dt, title);
+            if (row != null)
+            {
+                MDataTable dt = row.ToTable();
+                string title = string.Format("TableName : {0}    Columns£º {1}", row.TableName, row.Columns.Count);
+                FormCreate.BindTable(windowService, dt, title);
+            }
         }
     }
     public class MDataColumnVisualizer : DialogDebuggerVisualizer
@@ -60,9 +63,12 @@ namespace CYQ.Visualizer
         protected override void Show(IDialogVisualizerService windowService, IVisualizerObjectProvider objectProvider)
         {
             MDataColumn mdc = objectProvider.GetObject() as MDataColumn;
-            MDataTable dt = mdc.ToTable();
-            string title = string.Format("TableName : {0}    Columns£º {1}", dt.TableName, mdc.Count);
-            FormCreate.BindTable(windowService, dt, title);
+            if (mdc != null)
+            {
+                MDataTable dt = mdc.ToTable();
+                string title = string.Format("TableName : {0}    Columns£º {1}", dt.TableName, mdc.Count);
+                FormCreate.BindTable(windowService, dt, title);
+            }
         }
     }
     public class MDataRowCollectionVisualizer : DialogDebuggerVisualizer

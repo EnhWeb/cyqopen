@@ -4,6 +4,7 @@ using Microsoft.VisualStudio.DebuggerVisualizers;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -15,14 +16,32 @@ namespace CYQ.Visualizer
         override protected void Show(IDialogVisualizerService windowService, IVisualizerObjectProvider objectProvider)
         {
             MDataTable dt = objectProvider.GetObject() as MDataTable;
-            FormCreate.BindTable(windowService, dt, null);
+            if (dt != null)
+            {
+                try
+                {
+                    FormCreate.BindTable(windowService, dt, null);
+                }
+                catch (Exception err)
+                {
+                    MessageBox.Show(err.Message);
+                }
+                
+            }
         }
     }
     public class EnumerableVisualizerObjectSource : VisualizerObjectSource
     {
         public override void GetData(object target, System.IO.Stream outgoingData)
         {
-            target = MDataTable.CreateFrom(target as IEnumerable);
+            if (target is NameObjectCollectionBase)
+            {
+                target = MDataTable.CreateFrom(target as NameObjectCollectionBase);
+            }
+            else
+            {
+                target = MDataTable.CreateFrom(target as IEnumerable);
+            }
             base.GetData(target, outgoingData);
 
         }

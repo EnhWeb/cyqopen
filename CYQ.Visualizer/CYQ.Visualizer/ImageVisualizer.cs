@@ -15,18 +15,19 @@ namespace CYQ.Visualizer
         override protected void Show(IDialogVisualizerService windowService, IVisualizerObjectProvider objectProvider)
         {
             Image image = (Image)objectProvider.GetObject();
+            if (image != null)
+            {
+                Form form = new Form();
+                form.Text = string.Format("Width: {0}, Height: {1}", image.Width, image.Height);
+                form.ClientSize = new Size(image.Width, image.Height);
+                form.FormBorderStyle = FormBorderStyle.FixedToolWindow;
 
-            Form form = new Form();
-            form.Text = string.Format("Width: {0}, Height: {1}", image.Width, image.Height);
-            form.ClientSize = new Size(image.Width, image.Height);
-            form.FormBorderStyle = FormBorderStyle.FixedToolWindow;
-
-            PictureBox pictureBox = new PictureBox();
-            pictureBox.Image = image;
-            pictureBox.Parent = form;
-            pictureBox.Dock = DockStyle.Fill;
-
-            windowService.ShowDialog(form);
+                PictureBox pictureBox = new PictureBox();
+                pictureBox.Image = image;
+                pictureBox.Parent = form;
+                pictureBox.Dock = DockStyle.Fill;
+                windowService.ShowDialog(form);
+            }
         }
     }
 }

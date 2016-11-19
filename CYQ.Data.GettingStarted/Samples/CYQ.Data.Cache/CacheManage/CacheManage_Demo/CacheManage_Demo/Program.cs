@@ -24,23 +24,27 @@ namespace CacheManage_Demo
                 cache.Set("a1", "a1", 0.1);
             }
             cache.Set("a2", "a2", 0.5);//存在则更新，不存在则添加。
-            cache.Set("a4", "a4", 2.2);
+            cache.Set("a3", "a3", 2.2);
             cache.Set("a0", "a0");
             cache.Set("table", cache.CacheInfo);
 
-            Console.WriteLine(cache.Get("a0") as String);
+            Console.WriteLine(cache.Get<string>("a0"));
             Console.WriteLine(cache.Get<string>("a1"));
             Console.WriteLine(cache.Get<string>("a2"));
             Console.WriteLine(cache.Get<string>("a3"));
-            Console.WriteLine(cache.Get<string>("a4"));
             MDataTable table = cache.Get<MDataTable>("table");
-            cache.Remove("a0");//单个移除
-            cache.Clear();//清除所有缓存
+            if (table != null)
+            {
+                Console.WriteLine(table.Rows.Count);
+            }
+          
             if (cache.CacheType == CacheType.LocalCache)//只能拿到本机的信息
             {
                 Console.WriteLine("缓存数：" + table.Rows.Count);
                 Console.WriteLine("总内存(M)：" + GC.GetTotalMemory(false) / 1024); // 感觉拿到的值不太靠谱。
             }
+            cache.Remove("a0");//单个移除
+            cache.Clear();//清除所有缓存
             Console.Read();
         }
     }

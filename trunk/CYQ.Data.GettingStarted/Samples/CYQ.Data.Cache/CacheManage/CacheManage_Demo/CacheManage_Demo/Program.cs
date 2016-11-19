@@ -17,17 +17,16 @@ namespace CacheManage_Demo
             //比如框架对一些表架构的元数据的缓存，用的是本机（速度快）：CacheManage.LocalInstance
             //而框架对于自动缓存（表的数据），用的是：CacheManage.Instance （将来随便分布式启用分散到各缓存服务器）
 
-            //AppConfig.Cache.MemCacheServers = "127.0.0.1:11211,127.0.0.1:11212";//配置启用MemCache
+            AppConfig.Cache.MemCacheServers = "127.0.0.1:11211";//配置启用MemCache,127.0.0.1:11212
             CacheManage cache = CacheManage.Instance;
             if (!cache.Contains("a1"))
             {
-                cache.Add("a1", "a1", 0.1);
+                cache.Set("a1", "a1", 0.1);
             }
             cache.Set("a2", "a2", 0.5);//存在则更新，不存在则添加。
-            cache.Update("a3", "a3");//存在则更新，不存在则跳过
-            cache.Add("a4", "a4", 2.2);
-            cache.Add("a0", "a0");
-            cache.Add("table", cache.CacheTable);
+            cache.Set("a4", "a4", 2.2);
+            cache.Set("a0", "a0");
+            cache.Set("table", cache.CacheInfo);
 
             Console.WriteLine(cache.Get("a0") as String);
             Console.WriteLine(cache.Get<string>("a1"));
@@ -41,8 +40,6 @@ namespace CacheManage_Demo
             {
                 Console.WriteLine("缓存数：" + table.Rows.Count);
                 Console.WriteLine("总内存(M)：" + GC.GetTotalMemory(false) / 1024); // 感觉拿到的值不太靠谱。
-                Console.WriteLine("剩余内存(M)：" + cache.RemainMemoryBytes / 1024);
-                Console.WriteLine("剩余百分比%：" + cache.RemainMemoryPercentage);
             }
             Console.Read();
         }

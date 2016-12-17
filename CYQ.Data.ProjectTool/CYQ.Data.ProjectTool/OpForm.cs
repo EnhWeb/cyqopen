@@ -354,6 +354,7 @@ namespace CYQ.Data.ProjectTool
                 ddlBuildMode.Items.Clear();
                 ddlBuildMode.Items.Add("Enum for (MAction/MProc)");
                 ddlBuildMode.Items.Add("Entity for OrmBase");
+                ddlBuildMode.Items.Add("Entity for SimpleOrmBase");
                 ddlBuildMode.Items.Add("Entity for DBFast");
             }
         }

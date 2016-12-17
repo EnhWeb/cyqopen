@@ -325,8 +325,9 @@
             this.ddlBuildMode.FormattingEnabled = true;
             this.ddlBuildMode.Items.AddRange(new object[] {
             "枚举型（MAction/MProc）- 推荐",
-            "实体型（ORM操作方式）",
-            "纯实体类"});
+            "实体型（继承OrmBase）",
+            "实体型（继承SimpleOrmBase）",
+            "纯实体（无继承，可用DBFast操作）"});
             this.ddlBuildMode.Location = new System.Drawing.Point(104, 20);
             this.ddlBuildMode.Name = "ddlBuildMode";
             this.ddlBuildMode.Size = new System.Drawing.Size(199, 20);
@@ -397,7 +398,7 @@
             this.Name = "OpForm";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "CYQ.Data 配置工具 V2.0";
+            this.Text = "CYQ.Data 配置工具 V2.1";
             this.Load += new System.EventHandler(this.OpForm_Load);
             this.gbConn.ResumeLayout(false);
             this.gbConn.PerformLayout();

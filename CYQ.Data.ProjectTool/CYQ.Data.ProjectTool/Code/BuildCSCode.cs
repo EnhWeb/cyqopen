@@ -35,7 +35,7 @@ namespace CYQ.Data.ProjectTool
                             {
                                 dbName = dbName[0].ToString().ToUpper() + dbName.Substring(1, dbName.Length - 1);
                                 count = tables.Count;
-                                if (config.BuildMode.Contains("枚举"))//枚举型。
+                                if (config.BuildMode.Contains("枚举") || config.BuildMode.Contains("Enum"))//枚举型。
                                 {
                                     BuildTableEnumText(tables, config, dbName);
 
@@ -151,7 +151,16 @@ namespace CYQ.Data.ProjectTool
         {
             string fixTableName = FormatKey(tableName);
             if (config.MapName) { fixTableName = FixName(tableName); }
-            bool onlyEntity = config.BuildMode.StartsWith("纯") || config.BuildMode.Contains("DBFast");//纯实体。
+            //bool onlyEntity = config.BuildMode.StartsWith("纯") || config.BuildMode.Contains("DBFast");//纯实体。
+            string baseClassName = string.Empty;
+            if (config.BuildMode.Contains("SimpleOrmBase"))
+            {
+                baseClassName = ": CYQ.Data.Orm.SimpleOrmBase";
+            }
+            else if (config.BuildMode.Contains("OrmBase"))
+            {
+                baseClassName = ": CYQ.Data.Orm.OrmBase";
+            }
             try
             {
                 StringBuilder csText = new StringBuilder();
@@ -166,9 +175,9 @@ namespace CYQ.Data.ProjectTool
                     AppendText(csText, "    /// {0}", description);
                     AppendText(csText, "    /// </summary>");
                 }
-                AppendText(csText, "    public class {0} {1}", fixTableName + config.EntitySuffix, onlyEntity ? "" : ": CYQ.Data.Orm.OrmBase");
+                AppendText(csText, "    public class {0} {1}", fixTableName + config.EntitySuffix, baseClassName);
                 AppendText(csText, "    {");
-                if (!onlyEntity)
+                if (!string.IsNullOrEmpty(baseClassName))
                 {
                     AppendText(csText, "        public {0}()", fixTableName + config.EntitySuffix);
                     AppendText(csText, "        {");
@@ -277,9 +286,9 @@ namespace CYQ.Data.ProjectTool
 
             if (!string.IsNullOrEmpty(name))
             {
-                name = name.ToLower();
-                if (name == "id") { return "ID"; }
-                bool isEndWithID = name.EndsWith("id");
+                string lowerName = name.ToLower();
+                if (lowerName == "id") { return "ID"; }
+                bool isEndWithID = lowerName.EndsWith("id");
                 string[] items = name.Split(new char[] { '_', '-', ' ' });
                 if (items.Length == 1)
                 {

@@ -18,6 +18,10 @@ namespace CYQ.Visualizer
             form.FormBorderStyle = FormBorderStyle.Sizable;
             form.HorizontalScroll.Enabled = true;
             form.VerticalScroll.Enabled = true;
+            StatusBar sb = new StatusBar();
+            sb.Text = "  Author：路过秋天";
+            sb.Dock = DockStyle.Bottom;
+            sb.Parent = form;
             return form;
         }
         public static DataGridView CreateGrid(Form parent)
@@ -78,7 +82,8 @@ namespace CYQ.Visualizer
                     dt = dt.Select(200, null);
                 }
                 //插入行号
-                dt.Columns.Insert(0, new MCellStruct("[No.]", System.Data.SqlDbType.Int));
+                MCellStruct ms = new MCellStruct("[No.]", System.Data.SqlDbType.Int);
+                dt.Columns.Insert(0, ms);
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
                     dt.Rows[i][0].Value = i + 1;
